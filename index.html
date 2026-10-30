@@ -523,12 +523,10 @@
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Cấp độ / Nhóm</label>
             <select id="new-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
-              <option value="custom">Sổ tay của tôi</option>
-              <option value="n4_kanji">Hán tự N4</option>
-              <option value="n4_vocab">Từ vựng N4</option>
-              <option value="n3_kanji">Hán tự N3</option>
-              <option value="n3_vocab">Từ vựng N3</option>
-              <option value="n3_katakana">Katakana N3</option>
+              <option value="n4_kanji">Chữ Hán N4</option>
+              <option value="n3_kanji">Chữ Hán N3</option>
+              <option value="n4_vocab">Từ Vựng N4</option>
+              <option value="n3_vocab">Từ Vựng N3</option>
             </select>
           </div>
         </div>
@@ -650,12 +648,10 @@
     const CLOUD_FIREBASE_BASE = "https://nihongomaster-sync-default-rtdb.asia-southeast1.firebasedatabase.app/users";
 
     const CATEGORIES = [
-      { id: 'n4_kanji', name: 'Hán Tự Trọng Tâm N4', icon: 'fa-pen-nib' },
-      { id: 'n4_vocab', name: 'Từ Vựng Thực Chiến N4', icon: 'fa-book' },
-      { id: 'n3_kanji', name: 'Hán Tự Tăng Tốc N3', icon: 'fa-language' },
-      { id: 'n3_vocab', name: 'Từ Vựng Cốt Lõi N3', icon: 'fa-graduation-cap' },
-      { id: 'n3_katakana', name: 'Từ Katakana Mượn N3', icon: 'fa-font' },
-      { id: 'custom', name: 'Sổ Tay Cá Nhân (Tự tạo)', icon: 'fa-bookmark' }
+      { id: 'n4_kanji', name: 'Chữ Hán N4', icon: 'fa-pen-nib' },
+      { id: 'n3_kanji', name: 'Chữ Hán N3', icon: 'fa-language' },
+      { id: 'n4_vocab', name: 'Từ Vựng N4', icon: 'fa-book' },
+      { id: 'n3_vocab', name: 'Từ Vựng N3', icon: 'fa-graduation-cap' }
     ];
 
     // Dữ liệu mẫu chữ Hán, Từ vựng chuẩn hoá từ tài liệu N4-N3
@@ -770,68 +766,6 @@
         learned: false
       },
 
-      // Từ vựng N4
-      {
-        id: 201,
-        word: "有休",
-        furigana: "ゆうきゅう",
-        pos: "Danh từ",
-        sinoViet: "HỮU HƯU",
-        meaning: "Nghỉ phép có lương",
-        example: "来週有休を取る予定です。",
-        exampleVi: "Tuần tới tôi dự định xin nghỉ phép có lương.",
-        category: "n4_vocab",
-        learned: false
-      },
-      {
-        id: 202,
-        word: "給料",
-        furigana: "きゅうりょう",
-        pos: "Danh từ",
-        sinoViet: "CẤP LIÊU",
-        meaning: "Tiền lương",
-        example: "毎月25日に給料が振り込まれます。",
-        exampleVi: "Lương được chuyển vào ngày 25 hàng tháng.",
-        category: "n4_vocab",
-        learned: false
-      },
-      {
-        id: 203,
-        word: "同僚",
-        furigana: "どうりょう",
-        pos: "Danh từ",
-        sinoViet: "ĐỒNG LIÊU",
-        meaning: "Đồng nghiệp",
-        example: "仕事の後に同僚と飲みに行きます。",
-        exampleVi: "Sau giờ làm tôi đi uống nước cùng đồng nghiệp.",
-        category: "n4_vocab",
-        learned: false
-      },
-      {
-        id: 204,
-        word: "残業",
-        furigana: "ざんぎょう",
-        pos: "Danh từ",
-        sinoViet: "TÀN NGHIỆP",
-        meaning: "Làm thêm giờ, tăng ca",
-        example: "今日は残業がありません。",
-        exampleVi: "Hôm nay tôi không phải tăng ca.",
-        category: "n4_vocab",
-        learned: false
-      },
-      {
-        id: 205,
-        word: "おつり",
-        furigana: "おつり",
-        pos: "Danh từ",
-        sinoViet: "-",
-        meaning: "Tiền thừa, tiền thối lại",
-        example: "おつりのお受け取りをお忘れなく。",
-        exampleVi: "Xin đừng quên nhận lại tiền thừa.",
-        category: "n4_vocab",
-        learned: false
-      },
-
       // Hán tự N3
       {
         id: 301,
@@ -906,7 +840,69 @@
         learned: false
       },
 
-      // Từ vựng N3
+      // Từ vựng N4
+      {
+        id: 201,
+        word: "有休",
+        furigana: "ゆうきゅう",
+        pos: "Danh từ",
+        sinoViet: "HỮU HƯU",
+        meaning: "Nghỉ phép có lương",
+        example: "来週有休を取る予定です。",
+        exampleVi: "Tuần tới tôi dự định xin nghỉ phép có lương.",
+        category: "n4_vocab",
+        learned: false
+      },
+      {
+        id: 202,
+        word: "給料",
+        furigana: "きゅうりょう",
+        pos: "Danh từ",
+        sinoViet: "CẤP LIÊU",
+        meaning: "Tiền lương",
+        example: "毎月25日に給料が振り込まれます。",
+        exampleVi: "Lương được chuyển vào ngày 25 hàng tháng.",
+        category: "n4_vocab",
+        learned: false
+      },
+      {
+        id: 203,
+        word: "同僚",
+        furigana: "どうりょう",
+        pos: "Danh từ",
+        sinoViet: "ĐỒNG LIÊU",
+        meaning: "Đồng nghiệp",
+        example: "仕事の後に同僚と飲みに行きます。",
+        exampleVi: "Sau giờ làm tôi đi uống nước cùng đồng nghiệp.",
+        category: "n4_vocab",
+        learned: false
+      },
+      {
+        id: 204,
+        word: "残業",
+        furigana: "ざんぎょう",
+        pos: "Danh từ",
+        sinoViet: "TÀN NGHIỆP",
+        meaning: "Làm thêm giờ, tăng ca",
+        example: "今日は残業がありません。",
+        exampleVi: "Hôm nay tôi không phải tăng ca.",
+        category: "n4_vocab",
+        learned: false
+      },
+      {
+        id: 205,
+        word: "おつり",
+        furigana: "おつり",
+        pos: "Danh từ",
+        sinoViet: "-",
+        meaning: "Tiền thừa, tiền thối lại",
+        example: "おつりのお受け取りをお忘れなく。",
+        exampleVi: "Xin đừng quên nhận lại tiền thừa.",
+        category: "n4_vocab",
+        learned: false
+      },
+
+      // Từ vựng N3 (Bao gồm từ vựng và Katakana)
       {
         id: 401,
         word: "成長",
@@ -955,8 +951,6 @@
         category: "n3_vocab",
         learned: false
       },
-
-      // Katakana N3
       {
         id: 501,
         word: "ストレス",
@@ -966,7 +960,7 @@
         meaning: "Sự căng thẳng, áp lực tinh thần",
         example: "運動をしてストレスを発散する。",
         exampleVi: "Vận động thể thao để xua tan căng thẳng.",
-        category: "n3_katakana",
+        category: "n3_vocab",
         learned: false
       },
       {
@@ -978,7 +972,7 @@
         meaning: "Lịch trình, thời gian biểu",
         example: "今週のスケジュールを確認してください。",
         exampleVi: "Vui lòng kiểm tra lại lịch trình tuần này.",
-        category: "n3_katakana",
+        category: "n3_vocab",
         learned: false
       },
       {
@@ -990,7 +984,7 @@
         meaning: "Bản khảo sát, phiếu điều tra",
         example: "アンケートにご協力をお願いします。",
         exampleVi: "Xin quý khách vui lòng hỗ trợ làm bài khảo sát.",
-        category: "n3_katakana",
+        category: "n3_vocab",
         learned: false
       }
     ];
