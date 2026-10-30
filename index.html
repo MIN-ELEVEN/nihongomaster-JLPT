@@ -1758,39 +1758,95 @@
     /* ----------------------------------------------------
        6. BỘ PHÁT ÂM TIẾNG NHẬT CHUẨN (JAPANESE TTS)
        ---------------------------------------------------- */
+    let currentAudioPlayer = null;
+
     function sanitizeForJapaneseSpeech(rawText) {
       if (!rawText) return "";
-      return String(rawText).replace(/[·・~〜]/g, '').trim();
+      return String(rawText).replace(/[·・~〜\s]/g, '').trim();
+    }
+
+    function animateSpeakerIcons(isSpeaking) {
+      const icons = document.querySelectorAll('.fa-volume-high');
+      icons.forEach(icon => {
+        if (isSpeaking) {
+          icon.classList.add('text-rose-500', 'animate-pulse');
+        } else {
+          icon.classList.remove('text-rose-500', 'animate-pulse');
+        }
+      });
     }
 
     function playJapaneseSpeech(textToSpeak) {
-      if (!('speechSynthesis' in window)) {
-        showToast("Thiết bị chưa hỗ trợ Text-to-Speech tiếng Nhật.", "fa-exclamation");
-        return;
-      }
-
       const cleanText = sanitizeForJapaneseSpeech(textToSpeak);
       if (!cleanText) return;
 
-      window.speechSynthesis.cancel();
+      animateSpeakerIcons(true);
 
-      const utterance = new SpeechSynthesisUtterance(cleanText);
-      utterance.lang = 'ja-JP';
-      utterance.rate = 0.9;
-      utterance.pitch = 1.0;
-
-      if (availableVoices.length === 0) {
-        availableVoices = window.speechSynthesis.getVoices();
+      // Dừng âm thanh đang phát trước đó nếu có
+      if (currentAudioPlayer) {
+        currentAudioPlayer.pause();
+        currentAudioPlayer.currentTime = 0;
+        currentAudioPlayer = null;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
       }
 
-      if (availableVoices.length > 0) {
+      // ENGINE 1: Dùng Audio Stream chuẩn tiếng Nhật trực tiếp (Đảm bảo 100% mọi máy/điện thoại đều có âm thanh)
+      const encodedText = encodeURIComponent(cleanText);
+      const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ja&client=tw-ob`;
+      
+      const audio = new Audio(audioUrl);
+      currentAudioPlayer = audio;
+
+      const playPromise = audio.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audio.onended = () => {
+            animateSpeakerIcons(false);
+            currentAudioPlayer = null;
+          };
+        }).catch((err) => {
+          // ENGINE 2: Fallback sang Web Speech API nếu Audio stream bị mạng chặn
+          fallbackWebSpeech(cleanText);
+        });
+      } else {
+        fallbackWebSpeech(cleanText);
+      }
+    }
+
+    function fallbackWebSpeech(cleanText) {
+      if (!('speechSynthesis' in window)) {
+        animateSpeakerIcons(false);
+        showToast("Thiết bị không hỗ trợ âm thanh.", "fa-volume-xmark");
+        return;
+      }
+
+      try {
+        window.speechSynthesis.resume();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.9;
+        utterance.pitch = 1.0;
+
+        if (availableVoices.length === 0) {
+          availableVoices = window.speechSynthesis.getVoices();
+        }
+
         const jaVoice = availableVoices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP' || v.lang.startsWith('ja'));
         if (jaVoice) {
           utterance.voice = jaVoice;
         }
-      }
 
-      window.speechSynthesis.speak(utterance);
+        utterance.onend = () => animateSpeakerIcons(false);
+        utterance.onerror = () => animateSpeakerIcons(false);
+
+        window.speechSynthesis.speak(utterance);
+      } catch (e) {
+        animateSpeakerIcons(false);
+        console.warn("Speech synthesis error:", e);
+      }
     }
 
     function handleSpeakCurrent(event) {
@@ -1800,7 +1856,9 @@
       }
       const list = getFilteredVocab();
       if (list.length === 0) return;
-      playJapaneseSpeech(list[currentCardIndex].furigana || list[currentCardIndex].word);
+      // Ưu tiên đọc furigana/kana để phát âm chuẩn xác nhất
+      const targetText = list[currentCardIndex].furigana || list[currentCardIndex].word;
+      playJapaneseSpeech(targetText);
     }
 
     function quickSpeak(wordText, event) {
