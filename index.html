@@ -1759,6 +1759,7 @@
        6. BỘ PHÁT ÂM TIẾNG NHẬT CHUẨN (JAPANESE TTS)
        ---------------------------------------------------- */
     let currentAudioPlayer = null;
+    let audioCtx = null;
 
     function sanitizeForJapaneseSpeech(rawText) {
       if (!rawText) return "";
@@ -1776,76 +1777,127 @@
       });
     }
 
+    // Mở khóa AudioContext trên Brave / iOS Safari khi có click
+    function unlockAudioContext() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (AudioContext) {
+          if (!audioCtx) audioCtx = new AudioContext();
+          if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+          }
+        }
+      } catch (e) {}
+    }
+
     function playJapaneseSpeech(textToSpeak) {
       const cleanText = sanitizeForJapaneseSpeech(textToSpeak);
       if (!cleanText) return;
 
+      unlockAudioContext();
       animateSpeakerIcons(true);
 
-      // Dừng âm thanh đang phát trước đó nếu có
+      // 1. Dừng âm thanh đang phát trước đó
       if (currentAudioPlayer) {
         currentAudioPlayer.pause();
         currentAudioPlayer.currentTime = 0;
         currentAudioPlayer = null;
       }
+
+      // 2. CHIẾN LƯỢC 1: Dùng Web Speech API trước (Tận dụng voice hệ thống của Windows/macOS/Android)
       if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
+        try {
+          window.speechSynthesis.cancel();
+          window.speechSynthesis.resume();
+
+          const utterance = new SpeechSynthesisUtterance(cleanText);
+          utterance.lang = 'ja-JP';
+          utterance.rate = 0.9;
+          utterance.pitch = 1.0;
+
+          if (availableVoices.length === 0) {
+            availableVoices = window.speechSynthesis.getVoices();
+          }
+
+          const jaVoice = availableVoices.find(v => 
+            v.lang === 'ja-JP' || v.lang === 'ja_JP' || (v.lang && v.lang.toLowerCase().startsWith('ja'))
+          );
+
+          if (jaVoice) {
+            utterance.voice = jaVoice;
+          }
+
+          let speechStarted = false;
+          utterance.onstart = () => {
+            speechStarted = true;
+          };
+
+          utterance.onend = () => {
+            animateSpeakerIcons(false);
+          };
+
+          utterance.onerror = (e) => {
+            // Nếu Web Speech trên Brave bị lỗi, tự động chuyển sang Engine luồng Audio dự phòng
+            tryFallbackAudioStream(cleanText);
+          };
+
+          window.speechSynthesis.speak(utterance);
+
+          // Kiểm tra nếu sau 300ms Brave vẫn chặn âm ngầm (không kích hoạt onstart)
+          setTimeout(() => {
+            if (!speechStarted && (!window.speechSynthesis.speaking || window.speechSynthesis.paused)) {
+              window.speechSynthesis.cancel();
+              tryFallbackAudioStream(cleanText);
+            }
+          }, 350);
+
+          return;
+        } catch (err) {
+          console.warn("SpeechSynthesis error:", err);
+        }
       }
 
-      // ENGINE 1: Dùng Audio Stream chuẩn tiếng Nhật trực tiếp (Đảm bảo 100% mọi máy/điện thoại đều có âm thanh)
-      const encodedText = encodeURIComponent(cleanText);
-      const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodedText}&tl=ja&client=tw-ob`;
-      
-      const audio = new Audio(audioUrl);
+      // 3. CHIẾN LƯỢC 2: Dự phòng nếu trình duyệt không có SpeechSynthesis
+      tryFallbackAudioStream(cleanText);
+    }
+
+    // Engine Audio Stream dự phòng - Vượt tường lửa của Brave Shields
+    function tryFallbackAudioStream(cleanText) {
+      const encoded = encodeURIComponent(cleanText);
+      // Sử dụng luồng endpoint có hỗ trợ CORS và thân thiện với Brave
+      const fallbackUrls = [
+        `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ja&client=tw-ob`,
+        `https://dict.youdao.com/dictvoice?audio=${encoded}&le=jap`
+      ];
+
+      playFromUrlList(fallbackUrls, 0);
+    }
+
+    function playFromUrlList(urls, index) {
+      if (index >= urls.length) {
+        animateSpeakerIcons(false);
+        showToast("Không thể phát âm thanh. Vui lòng kiểm tra lại thiết lập âm thanh.", "fa-volume-xmark");
+        return;
+      }
+
+      const audio = new Audio();
+      audio.crossOrigin = "anonymous";
+      audio.src = urls[index];
       currentAudioPlayer = audio;
 
       const playPromise = audio.play();
-
       if (playPromise !== undefined) {
         playPromise.then(() => {
           audio.onended = () => {
             animateSpeakerIcons(false);
             currentAudioPlayer = null;
           };
-        }).catch((err) => {
-          // ENGINE 2: Fallback sang Web Speech API nếu Audio stream bị mạng chặn
-          fallbackWebSpeech(cleanText);
+        }).catch(() => {
+          // Thử link kế tiếp nếu bị Brave chặn
+          playFromUrlList(urls, index + 1);
         });
       } else {
-        fallbackWebSpeech(cleanText);
-      }
-    }
-
-    function fallbackWebSpeech(cleanText) {
-      if (!('speechSynthesis' in window)) {
-        animateSpeakerIcons(false);
-        showToast("Thiết bị không hỗ trợ âm thanh.", "fa-volume-xmark");
-        return;
-      }
-
-      try {
-        window.speechSynthesis.resume();
-        const utterance = new SpeechSynthesisUtterance(cleanText);
-        utterance.lang = 'ja-JP';
-        utterance.rate = 0.9;
-        utterance.pitch = 1.0;
-
-        if (availableVoices.length === 0) {
-          availableVoices = window.speechSynthesis.getVoices();
-        }
-
-        const jaVoice = availableVoices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP' || v.lang.startsWith('ja'));
-        if (jaVoice) {
-          utterance.voice = jaVoice;
-        }
-
-        utterance.onend = () => animateSpeakerIcons(false);
-        utterance.onerror = () => animateSpeakerIcons(false);
-
-        window.speechSynthesis.speak(utterance);
-      } catch (e) {
-        animateSpeakerIcons(false);
-        console.warn("Speech synthesis error:", e);
+        playFromUrlList(urls, index + 1);
       }
     }
 
