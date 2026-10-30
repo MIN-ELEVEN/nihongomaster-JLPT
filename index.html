@@ -87,82 +87,82 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-rose-100 selection:text-rose-700">
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col selection:bg-rose-100 selection:text-rose-700 overflow-x-hidden">
 
-  <!-- TOP HEADER -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 w-full">
-    <div class="w-full px-3 sm:px-6 lg:px-10">
-      <div class="flex items-center justify-between h-14 sm:h-16 gap-2">
+  <!-- TOP HEADER (Tối ưu co giãn linh hoạt 100% không bị tràn/mất góc phải) -->
+  <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-40 w-full overflow-hidden">
+    <div class="w-full px-2 sm:px-4 lg:px-8 max-w-7xl mx-auto">
+      <div class="flex items-center justify-between h-14 sm:h-16 gap-1.5 sm:gap-3">
         <!-- Vị trí 1: Logo sát lề trái -->
-        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer shrink-0" onclick="switchTab('flashcards')">
-          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
+        <div class="flex items-center gap-1.5 sm:gap-2.5 cursor-pointer shrink-0" onclick="switchTab('flashcards')">
+          <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white shadow-md shadow-rose-500/20 shrink-0">
             <span class="font-bold text-base sm:text-lg font-jp">日</span>
           </div>
-          <div>
-            <span class="font-extrabold text-lg sm:text-xl tracking-tight bg-gradient-to-r from-rose-600 to-red-600 bg-clip-text text-transparent">NihongoMaster</span>
-            <span class="hidden md:inline-block ml-1.5 text-[11px] font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200">JLPT N4-N3</span>
+          <div class="flex items-center">
+            <span class="font-extrabold text-base sm:text-xl tracking-tight bg-gradient-to-r from-rose-600 to-red-600 bg-clip-text text-transparent">NihongoMaster</span>
+            <span class="hidden xl:inline-block ml-1.5 text-[10px] font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200">JLPT N4-N3</span>
           </div>
         </div>
 
-        <!-- Vị trí 2: Navigation Tabs & User Profile sát lề phải -->
-        <nav class="flex items-center gap-1 sm:gap-2 shrink-0">
-          <button id="nav-flashcards" onclick="switchTab('flashcards')" class="nav-btn px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 bg-rose-600 text-white shadow-sm shadow-rose-500/20">
+        <!-- Vị trí 2: Navigation Tabs & User Profile sát lề phải (Tự co rút khi thu nhỏ cửa sổ) -->
+        <nav class="flex items-center gap-1 sm:gap-1.5 shrink min-w-0">
+          <button id="nav-flashcards" onclick="switchTab('flashcards')" class="nav-btn px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 bg-rose-600 text-white shadow-sm shadow-rose-500/20 shrink-0">
             <i class="fa-solid fa-layer-group text-xs sm:text-sm"></i>
-            <span class="hidden sm:inline">Thẻ Từ & Hán Tự</span>
-            <span class="sm:hidden">Thẻ từ</span>
+            <span class="hidden md:inline">Thẻ Từ & Hán Tự</span>
+            <span class="hidden sm:inline md:hidden">Thẻ từ</span>
           </button>
-          <button id="nav-grammar" onclick="switchTab('grammar')" class="nav-btn px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 text-slate-600 hover:text-rose-600 hover:bg-slate-100">
+          <button id="nav-grammar" onclick="switchTab('grammar')" class="nav-btn px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 text-slate-600 hover:text-rose-600 hover:bg-slate-100 shrink-0">
             <i class="fa-solid fa-book-open text-xs sm:text-sm"></i>
-            <span class="hidden sm:inline">Ngữ pháp N4-N3</span>
-            <span class="sm:hidden">Ngữ pháp</span>
+            <span class="hidden md:inline">Ngữ pháp N4-N3</span>
+            <span class="hidden sm:inline md:hidden">Ngữ pháp</span>
           </button>
-          <button id="nav-quiz" onclick="switchTab('quiz')" class="nav-btn px-2.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 text-slate-600 hover:text-rose-600 hover:bg-slate-100">
+          <button id="nav-quiz" onclick="switchTab('quiz')" class="nav-btn px-2 sm:px-3 lg:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 text-slate-600 hover:text-rose-600 hover:bg-slate-100 shrink-0">
             <i class="fa-solid fa-bolt text-xs sm:text-sm"></i>
-            <span>Luyện thi</span>
+            <span class="hidden sm:inline">Luyện thi</span>
           </button>
 
           <!-- STREAK BADGE -->
-          <div class="relative">
-            <button id="streak-badge-btn" onclick="toggleStreakPopup(event)" title="Chuỗi ngày học liên tục (Streak)" class="flex items-center gap-1 px-2.5 sm:px-3 py-1.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-600 font-extrabold text-xs sm:text-sm transition active:scale-95 shadow-sm">
+          <div class="relative shrink-0">
+            <button id="streak-badge-btn" onclick="toggleStreakPopup(event)" title="Chuỗi ngày học liên tục (Streak)" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-600 font-extrabold text-xs sm:text-sm transition active:scale-95 shadow-sm">
               <i id="streak-flame-icon" class="fa-solid fa-fire text-amber-500 text-sm sm:text-base animate-bounce"></i>
               <span id="streak-count-display">1</span>
             </button>
 
             <!-- Streak Dropdown Popup -->
-            <div id="streak-popup" class="hidden absolute top-full mt-2 left-1/2 -translate-x-1/2 sm:left-auto sm:right-0 sm:translate-x-0 w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
+            <div id="streak-popup" class="hidden absolute top-full mt-2 right-0 w-64 sm:w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 z-50 animate-in fade-in zoom-in-95 duration-150">
               <div class="flex items-center gap-3 border-b border-slate-100 pb-3">
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center text-2xl shadow-md shadow-orange-500/30">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center text-xl sm:text-2xl shadow-md shadow-orange-500/30">
                   <i class="fa-solid fa-fire"></i>
                 </div>
                 <div>
-                  <h4 class="font-extrabold text-slate-900 text-base leading-tight"><span id="popup-streak-num">1</span> Ngày Streak!</h4>
-                  <p id="popup-streak-desc" class="text-xs text-slate-500 mt-0.5">Giữ vững phong độ học tiếng Nhật hàng ngày!</p>
+                  <h4 class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight"><span id="popup-streak-num">1</span> Ngày Streak!</h4>
+                  <p class="text-[11px] sm:text-xs text-slate-500 mt-0.5">Giữ vững phong độ học tiếng Nhật hàng ngày!</p>
                 </div>
               </div>
-              <div class="py-3 text-xs text-slate-600 space-y-2">
+              <div class="py-2.5 text-xs text-slate-600 space-y-2">
                 <p class="leading-relaxed">Ôn ít nhất 1 từ Kanji hoặc hoàn thành 1 câu trắc nghiệm JLPT mỗi ngày để duy trì chuỗi học.</p>
-                <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-between font-bold text-orange-700">
-                  <span>Trạng thái hôm nay:</span>
-                  <span id="streak-status-label" class="flex items-center gap-1 text-emerald-600"><i class="fa-solid fa-circle-check"></i> Đã hoàn thành</span>
+                <div class="p-2 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-between font-bold text-orange-700 text-[11px] sm:text-xs">
+                  <span>Trạng thái:</span>
+                  <span id="streak-status-label" class="flex items-center gap-1 text-emerald-600"><i class="fa-solid fa-circle-check"></i> Đã xong</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- User Profile & Realtime Server Sync Status -->
-          <div id="user-header-menu" class="hidden items-center gap-2 pl-2 sm:pl-3 ml-1 sm:ml-2 border-l border-slate-200">
-            <button id="cloud-status-pill" onclick="triggerManualSync()" title="Bấm để đồng bộ dữ liệu ngay lập tức" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-bold hover:bg-emerald-100 transition active:scale-95">
-              <span id="cloud-indicator-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span id="cloud-status-text" class="hidden md:inline">Sao lưu</span>
-              <i id="cloud-sync-icon" class="fa-solid fa-cloud-arrow-up text-xs"></i>
+          <!-- User Profile & Realtime Server Sync Status (Tự co giãn thông minh không bị tràn) -->
+          <div id="user-header-menu" class="hidden items-center gap-1 sm:gap-1.5 pl-1 sm:pl-2 border-l border-slate-200 shrink min-w-0">
+            <button id="cloud-status-pill" onclick="triggerManualSync()" title="Bấm để đồng bộ dữ liệu ngay lập tức" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-700 text-xs font-bold hover:bg-emerald-100 transition active:scale-95 shrink-0">
+              <span id="cloud-indicator-dot" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span id="cloud-status-text" class="hidden lg:inline text-[11px] sm:text-xs">Sao lưu</span>
+              <i id="cloud-sync-icon" class="fa-solid fa-cloud-arrow-up text-[11px] sm:text-xs"></i>
             </button>
 
-            <div class="flex items-center gap-2 bg-slate-50 py-1.5 px-3 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-700">
-              <i class="fa-solid fa-circle-user text-rose-600 text-base"></i>
-              <span id="header-user-name" class="max-w-[100px] sm:max-w-[140px] truncate">Học viên</span>
+            <div class="flex items-center gap-1 sm:gap-1.5 bg-slate-50 py-1.5 px-2 sm:px-2.5 rounded-xl border border-slate-200 text-xs font-semibold text-slate-700 shrink min-w-0 max-w-[85px] sm:max-w-[120px] md:max-w-[150px]">
+              <i class="fa-solid fa-circle-user text-rose-600 text-sm shrink-0"></i>
+              <span id="header-user-name" class="truncate text-[11px] sm:text-xs">Học viên</span>
             </div>
             
-            <button onclick="handleLogout()" title="Đăng xuất tài khoản" class="w-9 h-9 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition active:scale-95">
+            <button onclick="handleLogout()" title="Đăng xuất tài khoản" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition active:scale-95 shrink-0">
               <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
             </button>
           </div>
