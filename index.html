@@ -2082,49 +2082,160 @@
     ];
 
     // Dữ liệu ngữ pháp N4 & N3 chuẩn theo đề thi (gộp thành 2 mục lớn: Ngữ pháp N4 & Ngữ pháp N3)
+    const GRAMMAR_N4_ITEMS = [
+      [1, "Thể Thường/ N/ Aな + でしょう/だろう", "Chắc hẳn... (đưa ra phán đoán, dự đoán)"],
+      [2, "Thể Thường/ N/ Aな + でしょう/だろう", "~ phải không/ ~ đúng không? (xác nhận)"],
+      [3, "Thể Thường / N/ Aな + かもしれない", "Có lẽ / Có khi ~ không chừng"],
+      [4, "Thể Thường/ N/ Aな + みたいだ", "Hình như ~ / Có vẻ ~ (phán đoán từ thị giác)"],
+      [5, "Thể Thường/ Nの/ Aな + ようだ", "Hình như ~ / Có vẻ ~ (phán đoán logic/cảm nhận)"],
+      [6, "Thể Thường/ Nの/ Aな + はずだ", "Chắc chắn là... (có căn cứ)"],
+      [7, "Thể Thường / N/ Aな + らしい", "Nghe nói ~ (truyền đạt) / Đậm chất ~"],
+      [8, "Thể Thường / N/ Aな + みたいだ", "Nghe nói ~"],
+      [9, "Thể Thường + そうだ", "Nghe nói, thấy bảo là ~"],
+      [10, "Thể Thường / 「~」 + と言っていました", "~ đã nói rằng..."],
+      [11, "Thể Thường + し、Thể Thường + し、~", "Vừa ~, vừa... (liệt kê lý do, tính chất)"],
+      [12, "Thể Thường + と思う", "Tôi nghĩ là ~"],
+      [13, "Thể Thường (Aな/N)な + んです。", "1. Chia sẻ thông tin bản thân; 2. Giải thích lý do người nghe chưa biết"],
+      [14, "Thể Thường (Aな/N)な + んですが、~", "Trình bày hoàn cảnh trước khi đưa ra câu hỏi/nhờ vả/mời rủ"],
+      [15, "Thể Thường (Aな/N)な + んですか", "Hỏi, khơi gợi thông tin chi tiết từ người nghe"],
+      [16, "Thể Thường (Aな/N)な + んです(か)", "Hỏi hoặc kể chi tiết về chủ đề đang nói"],
+      [17, "Thể Thường (Aな/N)な + んです(か)", "1. Hỏi chi tiết sự việc trước mắt; 2. Xác nhận phán đoán"],
+      [18, "(Số từ) も ~", "Tận, những ~ (nhấn mạnh số lượng nhiều)"],
+      [19, "(+) Aい/Aな + そう / (-) Aく+なさそう・Aでは/じゃ+なさそう", "(+) Trông có vẻ... / (-) Trông không có vẻ..."],
+      [20, "Vます + そう", "(Trông như) sắp V đến nơi"],
+      [21, "(+) Vます + そう / (-) Vない+な(さ)そう・Vますそうに(も)ない", "(+) Có vẻ sẽ V / (-) Không có vẻ là sẽ V"],
+      [22, "Aく / Aなに / Nに + V / する", "Làm cho trở nên ~ (thay đổi trạng thái có chủ đích)"],
+      [23, "Aく / Aなに / Nに + なる", "Trở nên ~ / Trở thành ~ (tự biến đổi)"],
+      [24, "Nが + V(tha)て + ある", "N đang được V sẵn (diễn tả trạng thái kết quả của hành động)"],
+      [25, "Nを + V(tha)て + ある", "Đã chuẩn bị sẵn N ~"],
+      [26, "~ 声/音/におい/味/感じ + がする", "Có tiếng / âm thanh / mùi / vị / cảm giác ~"],
+      [27, "~ が + 見える / 聞こえる", "Có thể nhìn thấy / nghe thấy (tự nhiên lọt vào mắt/tai)"],
+      [28, "N + がわかる", "Hiểu N / Biết N"],
+      [29, "Vる + のが + A【得意/苦手/速い/遅い...】", "V giỏi / kém / nhanh / chậm ~"],
+      [30, "V Thể Thường + のは Aです", "Việc V thì A (đưa ra đánh giá, nhận xét)"],
+      [31, "Thể Thường (Aな/N)な + のは、〜だ", "Nhấn mạnh địa điểm, người, thời gian làm gì"],
+      [32, "Thể Thường (Aな/N)な + のは、~からだ", "Lý do là vì ~"],
+      [33, "Thể Thường (Aな/N)な + のを知っています(か)", "Có biết về việc ~ hay không?"],
+      [34, "V Thể Thường + のを見る / 聞く", "Nhìn thấy / Nghe thấy việc ~ xảy ra"],
+      [35, "Vる + のを忘れる / やめる / 諦める", "Quên / Dừng / Từ bỏ việc làm V"],
+      [36, "Vる + な", "Cấm V / Đừng V (Thể Cấm đoán)"],
+      [37, "Thể Mệnh lệnh/Cấm đoán/Thường + と 書いてある/読む/言う", "~ được viết là... / đọc là... / nói là... (văn nói: と → って)"],
+      [38, "Thể Mệnh lệnh/Cấm đoán/Thường + という意味だ", "Có nghĩa là ~ (văn nói: という → って/っていう)"],
+      [39, "Nって ~", "Nêu ra chủ đề muốn nói/muốn hỏi đến"],
+      [40, "Nって + từ để hỏi?", "Hỏi về nội dung, ý nghĩa của từ/lời đối phương vừa nói"],
+      [41, "Aは/が Bに/から Nをもらう", "A nhận được N từ B"],
+      [42, "Aは/が Bに Nをいただく", "A nhận được N từ B (khiêm nhường ngữ)"],
+      [43, "Aは/が Bに/から Vて + もらう", "A được B làm V cho"],
+      [44, "Aは/が Bに/から Vて + いただく", "A được B làm V cho (khiêm nhường ngữ)"],
+      [45, "Vて + もらえませんか / いただけませんか", "Bạn có thể làm V giúp tôi được không?"],
+      [46, "Vて + ほしい", "1. Muốn ai đó làm gì; 2. Mong điều gì xảy ra"],
+      [47, "AがBにNを貸す/教える/預ける ⇔ BがAにNを借りる/教わる/預かる", "Mối quan hệ Cho mượn/Vay; Dạy/Học; Gửi/Giữ hộ"],
+      [48, "Aは/が Bに Vられます", "A bị/được B làm V (Bị động trực tiếp)"],
+      [49, "Aは/が Bに Nを Vられます", "A bị/được B làm V đối với N (Bị động gián tiếp)"],
+      [50, "Nは/が (Aによって) Vられます", "N được làm V bởi A (Bị động với chủ ngữ là đồ vật/phát minh)"],
+      [51, "Vて、~ / N・Aな + で ~ / Aく + て ~", "Vì, bởi vì ~"],
+      [52, "V1て / V1ないで、V2", "Làm V2 trong trạng thái có V1 / không có V1"],
+      [53, "V1 ないで、V2", "Không làm V1 mà làm V2"],
+      [54, "V1ます + ながら、V2", "Vừa làm V1 vừa làm V2 (hành động V2 là chính)"],
+      [55, "(~が) Vます + やすい / にくい", "Dễ làm V / Khó làm V"],
+      [56, "A / A + すぎる", "Quá A (vượt mức bình thường)"],
+      [57, "Vます + すぎる", "Làm V nhiều quá, quá độ"],
+      [58, "Nにする", "Chọn / Quyết định chọn N"],
+      [59, "Vる / Vない + ことにする", "Bản thân quyết định làm V / không làm V"],
+      [60, "Vる / Vない + ことになる", "Được quyết định là làm V / không làm V (tập thể/khách quan)"],
+      [61, "Vる / Vない + ようにする", "Sẽ cố gắng (tạo thói quen) làm V / không làm V"],
+      [62, "Vる / Vない + ようにしている", "Đang duy trì thói quen làm V / không làm V"],
+      [63, "Vる / Vない + ようにしてください", "(Xin) hãy cố gắng làm V / không làm V"],
+      [64, "Vる + ようになる / V khả năng + ようになる", "1. Bắt đầu có thói quen V; 2. Đã có thể làm được V"],
+      [65, "Vないく + なる", "1. Mất đi thói quen V; 2. Không còn làm được V nữa"],
+      [66, "Nの / Vる + 予定だ", "Dự định làm V / có lịch N"],
+      [67, "Vる / Vない + つもりだ", "Dự định, định làm V / định không làm V"],
+      [68, "V ý chí (よう) + と思っている", "Đang có dự định, đang tính làm V"],
+      [69, "Vた / Vない + ほうがいい", "Nên làm V / Không nên làm V (lời khuyên)"],
+      [70, "V1たり、V2たりする", "Khi thì làm V1, khi thì làm V2 / Liệt kê hành động tiêu biểu"],
+      [71, "V1たら、V2た", "Sau khi làm V1 thì nhận ra V2 (bất ngờ phát hiện)"],
+      [72, "(まだ) Vていない", "Vẫn chưa làm V"],
+      [73, "Vる + ところだ", "Sắp sửa, chuẩn bị làm V"],
+      [74, "Vている + ところだ", "Đúng vào lúc đang làm V"],
+      [75, "Vた + ところだ", "Vừa mới làm V xong"],
+      [76, "Vては / Vでは + いけない / だめだ (Vちゃ/Vじゃ)", "Không được làm V (Cấm chỉ)"],
+      [77, "Vなくては + いけない / だめだ (Vなくちゃ)", "Phải làm V (Bắt buộc)"],
+      [78, "Vてしまう / Vちゃう (1)", "Trót, lỡ làm V (tiếc nuối, ân hận)"],
+      [79, "Vてしまう / Vちゃう (2)", "Làm xong V hoàn toàn, triệt để"],
+      [80, "Vて + おく", "Làm V sẵn (chuẩn bị trước / giữ nguyên hiện trạng)"],
+      [81, "Vて + くる", "Đi làm V rồi quay lại / Làm V rồi mới tới"],
+      [82, "~ Vていく / ~ Vてくる (1)", "Làm V đi xa / Làm V lại gần (không gian)"],
+      [83, "~ Vていく / ~ Vてくる (2)", "Vていく: thay đổi tiếp diễn đến tương lai; Vてくる: biến đổi từ quá khứ đến hiện tại"],
+      [84, "Aは/が Bを V(tự động từ) させる", "A bắt/cho phép B làm V"],
+      [85, "Aは/g Bに Nを V(tha động từ) させる", "A bắt/cho phép B làm V đối với N"],
+      [86, "Aは/が Bを/に Vさせる", "A cho / để B làm V"],
+      [87, "Aは/が Bに Nを V(bị động sai khiến)", "A bị B bắt làm V"],
+      [88, "Aは/が Bに Vさせて + もらう", "A được B cho phép làm V"],
+      [89, "Vさせて + ください", "Xin hãy cho phép tôi làm V"],
+      [90, "Vさせていただけませんか", "Có thể cho phép tôi làm V được không? (rất lịch sự)"],
+      [91, "おVます + します / ごN + します", "Khiêm nhường ngữ của động từ nhóm 1, 2"],
+      [92, "おVます + になる / ごN + になる", "Tôn kính ngữ của động từ"],
+      [93, "おVます + ください / ごN + ください", "Xin hãy... (lịch sự, trang trọng)"],
+      [94, "Vます + なさい", "Hãy làm V đi (mệnh lệnh từ người trên với cấp dưới/con cái)"],
+      [95, "Nのとき、~", "Khi N / Lúc N"],
+      [96, "Vる + とき、~", "Trước khi làm V thì ~"],
+      [97, "Vた + とき、~", "Sau khi làm V xong thì ~"],
+      [98, "Vない + とき、~", "Khi không làm V thì ~"],
+      [99, "Aい / Aな + とき、~", "Trong khi / Lúc tính từ A thì ~"],
+      [100, "Vる / Vている / Aい / Aな / Nの + 間", "Trong suốt khoảng thời gian... (sự việc diễn ra liên tục)"],
+      [101, "Vる / Vている / Aい / Aな / Nの + 間に", "Trong khi... thì có 1 hành động mang tính thời điểm xảy ra"],
+      [102, "N / Vる + まで", "Cho đến khi... (hành động kéo dài liên tục tới thời điểm đó)"],
+      [103, "N / Vる + までに", "Chậm nhất là trước khi... (hạn chót hoàn thành hành động)"],
+      [104, "Thể Thường / A / A / N + かどうか、~", "Liệu có ~ hay không thì..."],
+      [105, "Từ để hỏi + Thể Thường / A / A / N + か、~", "Lồng một câu hỏi nghi vấn vào trong câu"],
+      [106, "Vて + みる", "Thử làm V (để xem kết quả ra sao)"],
+      [107, "Thể Thường (Aな/N)な + ので", "Vì ~ nên ~ (nguyên nhân khách quan, lịch sự hơn から)"],
+      [108, "Thể Thường (Aな/N)な + のに", "Thế mà, vậy mà lại... (bất mãn, ngạc nhiên, trái lẽ thường)"],
+      [109, "Vても / N・Aな+でも / Aくて+も (1)", "Cho dù ~ thì vẫn ~ (ngược với giả định)"],
+      [110, "Vても / N・Aな+でも / Aくて+も (2)", "Dù cho / Mặc dù (đã) ~ nhưng ~ (ngược với hiện thực)"],
+      [111, "Vた / Aかった / Aな・Nだった + ら、~", "Nếu ~ thì ~ / Sau khi ~ thì ~"],
+      [112, "Vたらいいんじゃない(ですか) / どう(ですか)", "Nếu làm V thì chẳng phải tốt sao? / Thử làm V xem sao?"],
+      [113, "Vる + と ~", "Hễ mà làm V thì ~ (tự nhiên, chân lý tất yếu, hướng dẫn đường đi)"],
+      [114, "Vる + といい", "Nên làm V thì hơn / Mong là..."],
+      [115, "Thể Thường (Nの/Aな) + 場合(は)", "Trong trường hợp ~ thì..."],
+      [116, "Thể Thường / Nの + とおり(に) / N + どおり(に)", "Đúng như ~ / Hệt như theo ~"],
+      [117, "Vる + のに / N + に", "Dùng cho việc... / Đối với... thì..."],
+      [118, "Vる / Nの + ために", "Để làm V / Vì mục đích N"],
+      [119, "Thể Thường (Nの/Aな) + ため(に)", "Vì, do ~ (chỉ nguyên nhân, lý do khách quan)"],
+      [120, "Vる / Vない + ように", "Để làm V / Để không bị V (mục tiêu không trực tiếp kiểm soát được)"]
+    ];
+
     const GRAMMAR_TOPICS = [
       {
         id: "grammar_n4",
         title: "Ngữ pháp N4",
-        level: "Trọng tâm N4",
+        level: "Trọn bộ 120 cấu trúc",
         icon: "fa-book-open-reader",
-        description: "Tổng hợp toàn bộ cấu trúc câu nền tảng N4: Thể điều kiện, mục đích, biến đổi trạng thái, kính ngữ và bị động sai khiến.",
+        description: "Toàn bộ 120 cấu trúc ngữ pháp N4 tổng hợp chuẩn từ trang 25 đến 30: Phán đoán, truyền đạt, thể bị động, sai khiến, điều kiện, mục đích và kính ngữ.",
         content: `
           <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-100">
-              <h4 class="font-bold text-rose-900 mb-1">1. Thể điều kiện: ～たら, ～ば, ～なら</h4>
-              <p class="text-sm text-slate-700 leading-relaxed mb-2">Diễn tả giả định hoặc tiền đề của hành động tiếp sau.</p>
-              <div class="text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp space-y-1">
-                <div>・雨が<strong>降ったら</strong>、出かけません。(Nếu trời mưa thì tôi sẽ không đi ra ngoài.)</div>
-                <div>・安<strong>ければ</strong>、買います。(Nếu rẻ thì tôi sẽ mua.)</div>
-                <div>・日本へ行く<strong>なら</strong>、春がいいです。(Nếu đi Nhật thì đi vào mùa xuân là đẹp nhất.)</div>
+            <div class="p-3 sm:p-4 rounded-2xl bg-rose-50/80 border border-rose-200">
+              <div class="flex items-center justify-between mb-2">
+                <h4 class="font-bold text-rose-900 text-sm sm:text-base flex items-center gap-2">
+                  <i class="fa-solid fa-list-check text-rose-600"></i>
+                  <span>Danh mục 120 cấu trúc ngữ pháp N4</span>
+                </h4>
+                <span class="text-xs bg-rose-200/80 text-rose-800 font-bold px-2.5 py-0.5 rounded-full">120 mẫu</span>
               </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
-              <h4 class="font-bold text-indigo-900 mb-1">2. Mục đích & Thay đổi thói quen: ～ようにする / ～ようになる</h4>
-              <p class="text-sm text-slate-700 leading-relaxed mb-2">Cố gắng tạo thói quen hoặc biểu thị sự biến đổi năng lực theo thời gian.</p>
-              <div class="text-xs bg-white p-2.5 rounded-xl border border-indigo-200 font-jp space-y-1">
-                <div>・毎朝野菜ジュースを飲む<strong>ようにしています</strong>。(Tôi đang cố gắng duy trì thói quen uống nước ép rau mỗi sáng.)</div>
-                <div>・日本語の新聞が読める<strong>ようになりました</strong>。(Tôi đã bắt đầu đọc được báo tiếng Nhật.)</div>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
-              <h4 class="font-bold text-emerald-900 mb-1">3. Dự đoán & Cảm nhận: ～そうだ / ～ようだ / ～らしい</h4>
-              <p class="text-sm text-slate-700 leading-relaxed mb-2">Đưa ra phán đoán qua thị giác, nghe ngóng thông tin hoặc đặc trưng bản chất.</p>
-              <div class="text-xs bg-white p-2.5 rounded-xl border border-emerald-200 font-jp space-y-1">
-                <div>・今にも雨が<strong>降りそうです</strong>。(Trông trời như sắp mưa tới nơi rồi.)</div>
-                <div>・田中さんは試験に合格した<strong>らしいです</strong>。(Nghe nói là anh Tanaka đã thi đỗ rồi.)</div>
-              </div>
-            </div>
-
-            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
-              <h4 class="font-bold text-amber-900 mb-1">4. Bị động & Sai khiến: ～られる / ～させる</h4>
-              <p class="text-sm text-slate-700 leading-relaxed mb-2">Thể hiện hành động bị tác động (bị động) hoặc chỉ thị, cho phép ai làm gì (sai khiến).</p>
-              <div class="text-xs bg-white p-2.5 rounded-xl border border-amber-200 font-jp space-y-1">
-                <div>・先生に<strong>褒められました</strong>。(Tôi được thầy giáo khen ngợi.)</div>
-                <div>・子どもに部屋を<strong>掃除させました</strong>。(Tôi bắt con dọn dẹp phòng ngủ.)</div>
+              <p class="text-xs sm:text-sm text-slate-600 mb-3">Bảng tra cứu đầy đủ công thức ngữ pháp kèm giải nghĩa chi tiết theo giáo trình Dungmori N4.</p>
+              
+              <div class="space-y-2 max-h-[550px] overflow-y-auto pr-1">
+                ${GRAMMAR_N4_ITEMS.map(item => `
+                  <div class="p-3 bg-white rounded-xl border border-rose-100 hover:border-rose-300 shadow-xs transition">
+                    <div class="flex items-start gap-2.5">
+                      <span class="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">${item[0]}</span>
+                      <div class="space-y-1">
+                        <div class="font-jp font-bold text-slate-900 text-sm sm:text-base">${item[1]}</div>
+                        <div class="text-xs sm:text-sm text-slate-600 font-medium">${item[2]}</div>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
               </div>
             </div>
           </div>
