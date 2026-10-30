@@ -3,12 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NihongoMaster - JLPT N4 & N3 Trọng Tâm</title>
+  <title>NihongoMaster - Luyện Thi JLPT N4-N3</title>
 
-  <!-- Open Graph / Metadata -->
-  <meta property="og:title" content="NihongoMaster - Học Tiếng Nhật JLPT N4 & N3">
-  <meta property="og:site_name" content="NihongoMaster">
-  <meta property="og:description" content="Chinh phục Chữ Hán (Kanji), Từ vựng và Ngữ pháp JLPT N4 - N3 trọng tâm">
+  <!-- Open Graph Metadata -->
+  <meta property="og:title" content="NihongoMaster - JLPT N4/N3">
+  <meta property="og:description" content="Chinh phục Kanji, Từ vựng và Ngữ pháp JLPT N4 - N3 trọng tâm">
   <meta property="og:type" content="website">
 
   <!-- Tailwind CSS CDN -->
@@ -17,10 +16,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
-  <!-- Google Fonts: Plus Jakarta Sans & Noto Sans JP -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -28,7 +27,7 @@
         extend: {
           fontFamily: {
             sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            jp: ['"Noto Sans JP"', '"Plus Jakarta Sans"', 'sans-serif'],
+            jp: ['"Noto Sans JP"', 'sans-serif'],
           }
         }
       }
@@ -44,6 +43,7 @@
     }
     .rotate-y-180 { transform: rotateY(180deg); }
 
+    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f5f9; }
     ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
@@ -59,23 +59,23 @@
         <!-- Logo -->
         <div class="flex items-center gap-3 cursor-pointer shrink-0" onclick="switchTab('flashcards')">
           <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-600 to-red-500 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
-            <span class="font-bold text-lg font-jp">日</span>
+            <span class="font-jp font-black text-lg">日</span>
           </div>
           <div>
             <span class="font-extrabold text-xl tracking-tight bg-gradient-to-r from-rose-600 to-red-600 bg-clip-text text-transparent">NihongoMaster</span>
-            <span class="hidden sm:inline-block ml-2 text-xs font-bold px-2.5 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200">JLPT N4-N3</span>
+            <span class="hidden sm:inline-block ml-2 text-xs font-bold px-2 py-0.5 bg-rose-50 text-rose-600 rounded-full border border-rose-200">JLPT N4-N3</span>
           </div>
         </div>
 
-        <!-- Navigation Tabs -->
+        <!-- Navigation & Tools -->
         <nav class="flex items-center gap-1 sm:gap-2 shrink-0">
           <button id="nav-flashcards" onclick="switchTab('flashcards')" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 bg-rose-600 text-white shadow-sm shadow-rose-500/20">
             <i class="fa-solid fa-layer-group"></i>
-            <span>Thẻ Từ & Hán Tự</span>
+            <span>Thẻ từ</span>
           </button>
           <button id="nav-grammar" onclick="switchTab('grammar')" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 hover:text-rose-600 hover:bg-slate-100">
             <i class="fa-solid fa-book-open"></i>
-            <span>Ngữ pháp N4-N3</span>
+            <span>Ngữ pháp</span>
           </button>
           <button id="nav-quiz" onclick="switchTab('quiz')" class="nav-btn px-3 sm:px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 text-slate-600 hover:text-rose-600 hover:bg-slate-100">
             <i class="fa-solid fa-bolt"></i>
@@ -84,7 +84,7 @@
 
           <!-- STREAK BADGE -->
           <div class="relative">
-            <button id="streak-badge-btn" onclick="toggleStreakPopup(event)" title="Chuỗi ngày học liên tục (Streak)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-600 font-extrabold text-xs sm:text-sm transition active:scale-95 shadow-sm">
+            <button id="streak-badge-btn" onclick="toggleStreakPopup(event)" title="Chuỗi ngày học" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 text-amber-600 font-extrabold text-xs sm:text-sm transition active:scale-95 shadow-sm">
               <i id="streak-flame-icon" class="fa-solid fa-fire text-amber-500 text-base animate-bounce"></i>
               <span id="streak-count-display">1</span>
             </button>
@@ -97,28 +97,17 @@
                 </div>
                 <div>
                   <h4 class="font-extrabold text-slate-900 text-base leading-tight"><span id="popup-streak-num">1</span> Ngày Streak!</h4>
-                  <p class="text-xs text-slate-500 mt-0.5">Giữ vững phong độ ôn tiếng Nhật mỗi ngày!</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Duy trì việc ôn tập tiếng Nhật mỗi ngày!</p>
                 </div>
               </div>
               <div class="py-3 text-xs text-slate-600 space-y-2">
-                <p>Học ít nhất 1 từ vựng hoặc trả lời 1 câu trắc nghiệm để duy trì ngọn lửa!</p>
+                <p>Học ít nhất 1 từ vựng Kanji hoặc hoàn thành 1 câu hỏi để duy trì streak.</p>
                 <div class="p-2.5 rounded-xl bg-orange-50 border border-orange-100 flex items-center justify-between font-bold text-orange-700">
                   <span>Trạng thái:</span>
                   <span id="streak-status-label" class="flex items-center gap-1 text-emerald-600"><i class="fa-solid fa-circle-check"></i> Đã hoàn thành</span>
                 </div>
               </div>
             </div>
-          </div>
-
-          <!-- User Menu -->
-          <div id="user-header-menu" class="hidden items-center gap-2 pl-2 sm:pl-3 ml-1 sm:ml-2 border-l border-slate-200">
-            <div class="flex items-center gap-2 bg-slate-50 py-1.5 px-3 rounded-xl border border-slate-200 text-xs sm:text-sm font-semibold text-slate-700">
-              <i class="fa-solid fa-circle-user text-rose-600 text-base"></i>
-              <span id="header-user-name" class="max-w-[100px] sm:max-w-[140px] truncate">Học viên</span>
-            </div>
-            <button onclick="handleLogout()" title="Đăng xuất" class="w-9 h-9 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-600 flex items-center justify-center transition active:scale-95">
-              <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
-            </button>
           </div>
         </nav>
       </div>
@@ -132,14 +121,14 @@
     <!-- SECTION 1: FLASHCARDS                      -->
     <!-- ========================================== -->
     <section id="section-flashcards" class="space-y-6">
+      <!-- Toolbar & Category Select -->
       <div class="bg-white rounded-2xl p-4 sm:p-5 shadow-sm border border-slate-200 flex flex-col gap-4 max-w-4xl mx-auto w-full">
-        <!-- Action Bar -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           <div class="flex items-center gap-2">
             <button id="btn-toggle-topics-dropdown" onclick="toggleTopicDropdown()" class="px-4 py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-between gap-3 bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-500/20 active:scale-95">
               <div class="flex items-center gap-2">
-                <i class="fa-solid fa-torii-gate text-sm"></i>
-                <span id="current-topic-name">Chủ đề</span>
+                <i class="fa-solid fa-layer-group text-sm"></i>
+                <span id="current-topic-name">Chuyên mục</span>
               </div>
               <div class="flex items-center gap-1.5 pl-2 border-l border-white/20">
                 <span id="current-topic-count" class="text-xs px-2 py-0.5 rounded-full bg-white/20 font-bold">0</span>
@@ -149,10 +138,6 @@
           </div>
 
           <div class="flex items-center gap-2 self-end sm:self-center shrink-0">
-            <button onclick="openAddWordModal()" class="px-3.5 py-2.5 bg-rose-50 hover:bg-rose-100 text-rose-700 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-1.5 transition">
-              <i class="fa-solid fa-plus"></i>
-              <span>Thêm từ mới</span>
-            </button>
             <button onclick="shuffleCards()" title="Xáo trộn thẻ" class="p-2.5 w-10 h-10 rounded-xl border border-slate-200 hover:bg-slate-100 text-slate-600 flex items-center justify-center transition">
               <i class="fa-solid fa-shuffle text-sm"></i>
             </button>
@@ -164,11 +149,11 @@
 
         <!-- Chủ đề danh mục -->
         <div id="topics-panel" class="pt-3 border-t border-slate-100 transition-all duration-300">
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" id="category-chips">
-            <!-- Rendered dynamically -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="category-chips">
+            <!-- Dynamic Topics -->
           </div>
           <div class="mt-3 pt-2 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
-            <span class="text-[11px] text-slate-400">Chọn 1 học phần JLPT N4 / N3 để bắt đầu ôn luyện</span>
+            <span class="text-[11px] text-slate-400">Chọn chủ đề JLPT để lọc thẻ từ vựng & Kanji tương ứng</span>
             <button onclick="toggleTopicDropdown()" class="text-rose-600 hover:text-rose-700 font-bold text-xs flex items-center gap-1">
               <span>Thu gọn</span>
               <i class="fa-solid fa-chevron-up text-[10px]"></i>
@@ -191,1372 +176,69 @@
         </div>
 
         <!-- 3D Flashcard Container -->
-        <div id="card-outer-box" class="w-full max-w-2xl h-[380px] sm:h-[410px] perspective-1000 cursor-pointer group relative transition-all duration-300" onclick="flipCard()">
+        <div id="card-outer-box" class="w-full max-w-2xl h-[360px] sm:h-[390px] perspective-1000 cursor-pointer group relative transition-all duration-300" onclick="flipCard()">
           <div id="card-inner" class="relative w-full h-full transform-style-3d transition-transform duration-500 rounded-3xl shadow-lg border border-slate-200/80">
             
             <!-- FRONT FACE -->
             <div class="absolute inset-0 w-full h-full backface-hidden rounded-3xl bg-white p-6 sm:p-8 flex flex-col justify-between select-none">
               <div class="flex items-center justify-between">
                 <span id="card-tag" class="text-xs uppercase tracking-wider font-extrabold px-3 py-1 bg-rose-50 text-rose-600 rounded-full border border-rose-100">
-                  KANJI N4
+                  JLPT N4
                 </span>
                 
                 <div class="flex items-center gap-2">
-                  <button type="button" id="btn-expand-card" onclick="toggleExpandFlashcard(event)" class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 active:scale-95 transition flex items-center justify-center shadow-sm" title="Phóng to / Thu nhỏ">
+                  <button type="button" id="btn-expand-card" onclick="toggleExpandFlashcard(event)" class="w-10 h-10 rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200 active:scale-95 transition flex items-center justify-center shadow-sm" title="Mở rộng thẻ">
                     <i id="expand-card-icon" class="fa-solid fa-expand text-sm"></i>
                   </button>
-                  <button type="button" onclick="handleSpeakCurrent(event)" class="w-11 h-11 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white active:scale-90 transition flex items-center justify-center shadow-md border border-rose-200" title="Bấm nghe phát âm tiếng Nhật">
-                    <i class="fa-solid fa-volume-high text-lg"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="text-center my-auto py-2">
-                <h2 id="card-word" class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight mb-2 font-jp">働きます</h2>
-                <div class="flex items-center justify-center gap-2 mb-2">
-                  <span id="card-furigana" class="font-jp text-rose-600 font-bold text-lg sm:text-xl">はたらきます</span>
-                  <span id="card-pos" class="italic text-xs sm:text-sm text-slate-500 font-semibold">(Động từ)</span>
-                </div>
-                <div id="card-sino-viet" class="inline-block px-3 py-1 bg-amber-50 text-amber-800 text-xs sm:text-sm font-black rounded-lg border border-amber-200 uppercase">
-                  Hán Việt: ĐỘNG
-                </div>
-                <p class="text-slate-400 text-xs flex items-center justify-center gap-1.5 mt-3">
-                  <i class="fa-solid fa-arrow-rotate-right text-[10px]"></i>
-                  <span>Chạm thẻ để xem định nghĩa & câu ví dụ</span>
-                </p>
-              </div>
-
-              <div class="text-center text-xs text-slate-400">
-                Phím tắt: Space để lật thẻ, mũi tên trái / phải để chuyển từ
-              </div>
-            </div>
-
-            <!-- BACK FACE -->
-            <div class="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-br from-slate-900 via-rose-950 to-red-950 text-white p-6 sm:p-8 flex flex-col justify-between select-none shadow-2xl">
-              <div class="flex items-center justify-between border-b border-white/10 pb-3">
-                <div class="flex items-center gap-2">
-                  <span id="card-back-word" class="font-jp font-black text-2xl text-rose-300">働きます</span>
-                  <span id="card-back-romaji" class="text-xs text-slate-300 font-mono italic">/hatarakimasu/</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <button type="button" onclick="toggleExpandFlashcard(event)" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white transition flex items-center justify-center">
-                    <i class="fa-solid fa-expand text-sm"></i>
-                  </button>
-                  <button type="button" onclick="handleSpeakCurrent(event)" class="w-11 h-11 rounded-full bg-white/20 hover:bg-white/30 active:scale-90 text-white transition flex items-center justify-center border border-white/30 shadow-md">
+                  <button type="button" onclick="handleSpeakCurrent(event)" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white active:scale-95 transition flex items-center justify-center shadow-sm" title="Nghe phát âm tiếng Nhật">
                     <i class="fa-solid fa-volume-high text-base"></i>
                   </button>
                 </div>
               </div>
 
-              <div class="my-auto space-y-3 sm:space-y-4 py-2">
+              <div class="text-center my-auto py-2">
+                <h2 id="card-word" class="font-jp text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-wide mb-2">働きます</h2>
+                <div class="flex items-center justify-center gap-2 mb-2">
+                  <span id="card-kana" class="font-jp text-rose-600 text-lg sm:text-xl font-bold">はたらきます</span>
+                </div>
+                <div class="flex items-center justify-center gap-2 text-xs sm:text-sm text-slate-500 font-semibold">
+                  <span id="card-pos" class="italic">(Động từ)</span>
+                  <span id="card-hanviet" class="font-bold text-slate-700 uppercase bg-slate-100 px-2 py-0.5 rounded-md">ĐỘNG</span>
+                </div>
+                <p class="text-slate-400 text-xs flex items-center justify-center gap-1.5 mt-3">
+                  <i class="fa-solid fa-arrow-rotate-right text-[10px]"></i>
+                  <span>Nhấn để xem giải nghĩa & câu ví dụ</span>
+                </p>
+              </div>
+
+              <div class="text-center text-xs text-slate-400">
+                Mẹo: Bấm Space hoặc chạm vào thẻ để lật
+              </div>
+            </div>
+
+            <!-- BACK FACE -->
+            <div class="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-3xl bg-gradient-to-br from-slate-900 via-rose-950 to-slate-900 text-white p-6 sm:p-8 flex flex-col justify-between select-none shadow-2xl">
+              <div class="flex items-center justify-between border-b border-white/10 pb-3">
+                <div class="flex items-center gap-2">
+                  <span id="card-back-word" class="font-jp font-bold text-xl text-rose-300">働きます</span>
+                  <span id="card-back-kana" class="font-jp text-xs text-slate-300">はたらきます</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" onclick="toggleExpandFlashcard(event)" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white transition flex items-center justify-center">
+                    <i class="fa-solid fa-expand text-sm"></i>
+                  </button>
+                  <button type="button" onclick="handleSpeakCurrent(event)" class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 active:scale-95 text-white transition flex items-center justify-center">
+                    <i class="fa-solid fa-volume-high text-sm"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="my-auto space-y-3 py-2">
                 <div>
                   <div class="text-xs uppercase tracking-wider text-rose-300 font-semibold mb-1">Nghĩa tiếng Việt</div>
-                  <div id="card-meaning" class="text-xl sm:text-2xl font-bold text-emerald-300">Làm việc, lao động</div>
+                  <div id="card-meaning" class="text-2xl sm:text-3xl font-bold text-emerald-300">Làm việc</div>
                 </div>
 
                 <div class="bg-white/5 rounded-2xl p-3.5 sm:p-4 border border-white/10">
-                  <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Ví dụ thực tế (例文)</div>
-                  <p id="card-example" class="font-jp text-slate-100 text-sm sm:text-base font-medium leading-relaxed">日本の会社で働いています。</p>
-                  <p id="card-example-vi" class="text-slate-300 text-xs sm:text-sm mt-1">"Tôi đang làm việc tại một công ty Nhật Bản."</p>
-                </div>
-              </div>
-
-              <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-white/10">
-                <span>Nhấn lại để lật về mặt trước</span>
-                <i class="fa-solid fa-check-double text-emerald-400"></i>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- Controls -->
-        <div id="card-controls" class="w-full max-w-2xl flex items-center justify-between gap-3 mt-5 transition-all duration-300">
-          <button onclick="prevCard()" class="flex-1 py-3 px-4 bg-white hover:bg-slate-100 text-slate-700 font-bold rounded-2xl border border-slate-200 shadow-sm transition active:scale-95 flex items-center justify-center gap-2 text-sm">
-            <i class="fa-solid fa-chevron-left text-xs"></i>
-            <span>Trước</span>
-          </button>
-
-          <button id="btn-master" onclick="toggleMasteredCurrentCard()" class="px-5 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold rounded-2xl transition flex items-center gap-2 text-sm shadow-sm active:scale-95">
-            <i id="master-icon" class="fa-regular fa-circle-check text-base"></i>
-            <span id="master-text">Đã nhớ</span>
-          </button>
-
-          <button onclick="nextCard()" class="flex-1 py-3 px-4 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-500/25 transition active:scale-95 flex items-center justify-center gap-2 text-sm">
-            <span>Tiếp theo</span>
-            <i class="fa-solid fa-chevron-right text-xs"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Quick Vocabulary List table -->
-      <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm mt-8 max-w-4xl mx-auto w-full">
-        <div class="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div>
-            <h3 class="font-extrabold text-slate-900 text-lg">Danh sách từ vựng & Chữ Hán trong học phần</h3>
-            <p class="text-xs text-slate-500 mt-0.5">Bấm vào bất kỳ từ nào để mở ngay trên thẻ Flashcard hoặc bấm loa để nghe</p>
-          </div>
-          <div class="relative">
-            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-            <input type="text" id="vocab-search" oninput="filterVocabTable()" placeholder="Tìm Kanji, Furigana, Hán Việt, nghĩa..." class="pl-8 pr-3 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-rose-500 w-full sm:w-64">
-          </div>
-        </div>
-        <div class="overflow-x-auto max-h-96">
-          <table class="w-full text-left text-sm">
-            <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold sticky top-0 z-10">
-              <tr>
-                <th class="py-3 px-4">Từ vựng (Kanji)</th>
-                <th class="py-3 px-4">Cách đọc (Furigana)</th>
-                <th class="py-3 px-4">Hán Việt</th>
-                <th class="py-3 px-4">Nghĩa tiếng Việt</th>
-                <th class="py-3 px-4 text-center">Trạng thái</th>
-              </tr>
-            </thead>
-            <tbody id="vocab-tbody" class="divide-y divide-slate-100 text-slate-700 font-jp">
-              <!-- Rendered via JS -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- SECTION 2: GRAMMAR MASTER                  -->
-    <!-- ========================================== -->
-    <section id="section-grammar" class="hidden space-y-6">
-      <div class="bg-gradient-to-r from-rose-600 via-red-600 to-amber-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div class="space-y-2 max-w-xl">
-          <span class="px-3 py-1 bg-white/20 text-xs font-semibold rounded-full uppercase tracking-wider backdrop-blur-sm">Chuyên Đề Trọng Tâm JLPT</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Hệ Thống Ngữ Pháp Thực Chiến N4 - N3</h2>
-          <p class="text-rose-100 text-sm leading-relaxed">
-            Học ngữ pháp có chiến lược: Các thể điều kiện, câu bị động, cấu trúc phỏng đoán, liên kết câu và các bẫy thường gặp trong đề thi năng lực Nhật ngữ.
-          </p>
-        </div>
-        <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 self-start md:self-center">
-          <div class="text-center px-3 border-r border-white/20">
-            <div id="grammar-total-count" class="text-2xl font-black">4</div>
-            <div class="text-[11px] text-rose-200 uppercase font-semibold">Chuyên đề</div>
-          </div>
-          <div class="text-center px-3">
-            <div class="text-2xl font-black text-amber-300">100%</div>
-            <div class="text-[11px] text-rose-200 uppercase font-semibold">Chuẩn JLPT</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-4 space-y-3">
-          <h3 class="text-sm font-bold text-slate-500 uppercase tracking-wider px-1">Danh mục chuyên đề</h3>
-          <div id="grammar-list" class="space-y-2">
-            <!-- Topics injected here -->
-          </div>
-        </div>
-        <div class="lg:col-span-8">
-          <div id="grammar-detail-container" class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm space-y-6">
-            <!-- Dynamic Content -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========================================== -->
-    <!-- SECTION 3: PRACTICE QUIZ                   -->
-    <!-- ========================================== -->
-    <section id="section-quiz" class="hidden space-y-6">
-      <div class="max-w-3xl mx-auto space-y-6">
-        <div class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm text-center space-y-3">
-          <div class="w-14 h-14 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-sm">
-            <i class="fa-solid fa-award"></i>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Trắc Nghiệm Phản Xạ JLPT</h2>
-          <p class="text-slate-500 text-sm max-w-lg mx-auto">Kiểm tra khả năng nhận diện Hán tự, từ vựng và vận dụng cấu trúc chính xác.</p>
-          
-          <div class="flex items-center justify-center gap-6 pt-3 text-sm">
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
-              <span class="text-slate-600 font-medium">Đúng: <strong id="quiz-correct-count" class="text-emerald-600 font-bold">0</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-rose-500"></span>
-              <span class="text-slate-600 font-medium">Sai: <strong id="quiz-wrong-count" class="text-rose-600 font-bold">0</strong></span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-              <span class="text-slate-600 font-medium">Câu: <strong id="quiz-progress-text" class="text-blue-600 font-bold">1/5</strong></span>
-            </div>
-          </div>
-        </div>
-
-        <div id="quiz-box" class="bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-md space-y-6">
-          <div class="flex items-center justify-between text-xs font-semibold text-slate-400 border-b border-slate-100 pb-3">
-            <span id="quiz-category-badge" class="px-3 py-1 bg-rose-50 text-rose-600 rounded-full font-bold">HÁN TỰ N4</span>
-            <span id="quiz-question-index">Câu hỏi 1 / 5</span>
-          </div>
-
-          <h3 id="quiz-question" class="text-lg sm:text-xl font-bold text-slate-900 leading-snug min-h-[50px] flex items-center font-jp">
-            Chữ Hán nào tương ứng với ý nghĩa?
-          </h3>
-
-          <div id="quiz-options" class="grid grid-cols-1 gap-3">
-            <!-- Render options dynamically -->
-          </div>
-
-          <div id="quiz-explanation" class="hidden p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm space-y-1">
-            <div class="font-bold text-slate-800 flex items-center gap-1.5" id="quiz-feedback-title">
-              <i class="fa-solid fa-circle-info"></i> Giải thích chi tiết
-            </div>
-            <p id="quiz-feedback-desc" class="text-slate-600 leading-relaxed font-jp"></p>
-          </div>
-
-          <div class="flex items-center justify-between pt-2">
-            <button onclick="resetQuiz()" class="text-xs text-slate-400 hover:text-slate-600 font-medium transition flex items-center gap-1">
-              <i class="fa-solid fa-rotate-left"></i> Làm lại
-            </button>
-            <button id="btn-next-quiz" onclick="nextQuizQuestion()" disabled class="px-6 py-2.5 bg-rose-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-rose-700 text-white font-bold text-sm rounded-xl shadow-md shadow-rose-500/25 transition">
-              Câu tiếp theo <i class="fa-solid fa-arrow-right ml-1 text-xs"></i>
-            </button>
-          </div>
-        </div>
-
-        <div id="quiz-result-modal" class="hidden bg-white rounded-3xl border border-slate-200 p-8 shadow-xl text-center space-y-5">
-          <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner">
-            <i class="fa-solid fa-trophy"></i>
-          </div>
-          <div class="space-y-2">
-            <h3 class="text-2xl font-black text-slate-900">Hoàn Thành Bài Kiểm Tra!</h3>
-            <p id="quiz-final-score" class="text-slate-600 text-base">Bạn đã trả lời đúng 5 / 5 câu.</p>
-          </div>
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 max-w-sm mx-auto">
-            <span id="quiz-appraisal" class="text-sm font-bold text-rose-600">Tuyệt vời! Bạn nắm rất vững kiến thức.</span>
-          </div>
-          <div class="flex justify-center gap-3 pt-2">
-            <button onclick="restartQuiz()" class="px-6 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl shadow-md shadow-rose-500/30 transition">
-              <i class="fa-solid fa-rotate-right mr-1.5"></i> Thử sức lại
-            </button>
-            <button onclick="switchTab('flashcards')" class="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-2xl transition">
-              Ôn thẻ từ
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- MODAL: ADD WORD -->
-  <div id="add-word-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-5">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-circle-plus text-rose-600"></i>
-          <span>Thêm Từ Vựng / Chữ Hán Mới</span>
-        </h3>
-        <button onclick="closeAddWordModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition">
-          <i class="fa-solid fa-xmark text-sm"></i>
-        </button>
-      </div>
-
-      <form id="add-word-form" onsubmit="handleSaveWord(event)" class="space-y-4 text-left">
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Từ vựng (Kanji) *</label>
-            <input required type="text" id="new-word" placeholder="Ví dụ: 計画" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 font-jp">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Cách đọc (Furigana) *</label>
-            <input required type="text" id="new-phonetic" placeholder="Ví dụ: けいかく" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 font-jp">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Âm Hán Việt</label>
-            <input type="text" id="new-hanviet" placeholder="Ví dụ: KẾ HOẠCH" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 uppercase">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Chủ đề</label>
-            <select id="new-category" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
-              <option value="custom">Sổ tay của tôi</option>
-              <option value="n4_kanji">Chữ Hán N4</option>
-              <option value="n4_vocab">Từ vựng N4</option>
-              <option value="n3_kanji">Chữ Hán N3</option>
-              <option value="n3_verbs">Động từ ghép N3</option>
-              <option value="n3_affix">Hậu tố & Tiền tố N3</option>
-              <option value="n3_katakana">Katakana N3</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nghĩa tiếng Việt *</label>
-          <input required type="text" id="new-meaning" placeholder="Kế hoạch, dự định" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Câu ví dụ tiếng Nhật</label>
-          <input type="text" id="new-example" placeholder="旅行の計画を立てる。" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500 font-jp">
-        </div>
-
-        <div>
-          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Dịch nghĩa câu ví dụ</label>
-          <input type="text" id="new-example-vi" placeholder="Lập kế hoạch đi du lịch." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-rose-500">
-        </div>
-
-        <div class="flex items-center justify-end gap-3 pt-3 border-t border-slate-100">
-          <button type="button" onclick="closeAddWordModal()" class="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-sm font-bold transition">
-            Hủy
-          </button>
-          <button type="submit" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-bold shadow-md shadow-rose-500/25 transition">
-            Lưu vào thư viện
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-3 px-4 py-3 bg-slate-900 text-white rounded-2xl shadow-xl text-sm font-semibold">
-    <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
-    <span id="toast-msg">Thông báo thành công</span>
-  </div>
-
-  <!-- FOOTER -->
-  <footer class="bg-white border-t border-slate-200 py-6 text-xs text-slate-500 mt-auto w-full">
-    <div class="w-full px-4 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <span class="font-extrabold text-slate-800">NihongoMaster</span> — 継続は力なり (Kiên trì ắt thành công!)
-      </div>
-      <div class="text-slate-400 font-bold tracking-wider text-xs uppercase">
-        JLPT N4-N3 COMPREHENSIVE
-      </div>
-    </div>
-  </footer>
-
-  <!-- ======================================================== -->
-  <!-- JAVASCRIPT APPLICATION CORE ENGINE                       -->
-  <!-- ======================================================== -->
-  <script>
-    /* ----------------------------------------------------
-       1. DANH MỤC & TOÀN BỘ TỪ VỰNG DỮ LIỆU N4 & N3 (TỪ TÀI LIỆU DUNGMORI)
-       ---------------------------------------------------- */
-    const CATEGORIES = [
-      { id: 'n4_kanji', name: '1. Chữ Hán N4', icon: 'fa-pen-nib' },
-      { id: 'n4_vocab', name: '2. Từ Vựng N4', icon: 'fa-book' },
-      { id: 'n3_kanji', name: '3. Chữ Hán N3', icon: 'fa-language' },
-      { id: 'n3_verbs', name: '4. Động Từ N3', icon: 'fa-bolt' },
-      { id: 'n3_affix', name: '5. Tiền Tố & Hậu Tố N3', icon: 'fa-tags' },
-      { id: 'n3_katakana', name: '6. Katakana N3', icon: 'fa-font' },
-      { id: 'custom', name: '7. Sổ Tay Cá Nhân', icon: 'fa-bookmark' }
-    ];
-
-    // Cập nhật toàn bộ các từ từ tài liệu tổng hợp N4 & N3
-    const FULL_JAPANESE_DATABASE = [
-      // =================== NHÓM 1: CHỮ HÁN N4 ===================
-      { id: 1001, word: "力", furigana: "ちから", pos: "Danh từ", sinoViet: "LỰC", meaning: "Sức mạnh, lực", example: "力を合わせて頑張りましょう。", exampleVi: "Hãy chung sức cùng nhau cố gắng.", category: "n4_kanji", learned: false },
-      { id: 1002, word: "協力", furigana: "きょうりょく", pos: "Danh từ/Động từ", sinoViet: "HIỆP LỰC", meaning: "Hợp tác, hiệp lực", example: "皆様のご協力をお願いします。", exampleVi: "Kính mong nhận được sự hợp tác của mọi người.", category: "n4_kanji", learned: false },
-      { id: 1003, word: "動きます", furigana: "うごきます", pos: "Động từ", sinoViet: "ĐỘNG", meaning: "Cử động, chuyển động, hoạt động", example: "この機械は正しく動きます。", exampleVi: "Cỗ máy này hoạt động chính xác.", category: "n4_kanji", learned: false },
-      { id: 1004, word: "運動", furigana: "うんどう", pos: "Danh từ", sinoViet: "VẬN ĐỘNG", meaning: "Vận động, tập thể dục", example: "健康のために毎日運動します。", exampleVi: "Tôi tập thể dục mỗi ngày vì sức khỏe.", category: "n4_kanji", learned: false },
-      { id: 1005, word: "働きます", furigana: "はたらきます", pos: "Động từ", sinoViet: "ĐỘNG", meaning: "Làm việc", example: "日本の工場で働いています。", exampleVi: "Tôi đang làm việc tại nhà máy ở Nhật Bản.", category: "n4_kanji", learned: false },
-      { id: 1006, word: "知ります", furigana: "しります", pos: "Động từ", sinoViet: "TRI", meaning: "Biết, hiểu biết", example: "そのニュースを知っていますか。", exampleVi: "Bạn có biết tin tức đó không?", category: "n4_kanji", learned: false },
-      { id: 1007, word: "知り合い", furigana: "しりあい", pos: "Danh từ", sinoViet: "TRI HỢP", meaning: "Người quen", example: "彼は私の古い知り合いです。", exampleVi: "Anh ấy là người quen cũ của tôi.", category: "n4_kanji", learned: false },
-      { id: 1008, word: "お知らせ", furigana: "おしらせ", pos: "Danh từ", sinoViet: "TRI", meaning: "Thông báo", example: "掲示板のお知らせを見てください。", exampleVi: "Hãy xem thông báo trên bảng tin.", category: "n4_kanji", learned: false },
-      { id: 1009, word: "短い", furigana: "みじかい", pos: "Tính từ đuôi い", sinoViet: "ĐOẢN", meaning: "Ngắn", example: "冬は日が短いです。", exampleVi: "Mùa đông ngày rất ngắn.", category: "n4_kanji", learned: false },
-      { id: 1010, word: "医者", furigana: "いしゃ", pos: "Danh từ", sinoViet: "Y GIẢ", meaning: "Bác sĩ", example: "具合が悪いので医者に行きます。", exampleVi: "Thấy không khỏe nên tôi đi khám bác sĩ.", category: "n4_kanji", learned: false },
-      { id: 1011, word: "歯医者", furigana: "はいしゃ", pos: "Danh từ", sinoViet: "XỈ Y GIẢ", meaning: "Nha sĩ", example: "歯医者で虫歯を治療しました。", exampleVi: "Tôi đã chữa răng sâu ở phòng khám nha sĩ.", category: "n4_kanji", learned: false },
-      { id: 1012, word: "血", furigana: "ち", pos: "Danh từ", sinoViet: "HUYẾT", meaning: "Máu", example: "指を切って血が出ました。", exampleVi: "Tôi cắt trúng ngón tay và bị chảy máu.", category: "n4_kanji", learned: false },
-      { id: 1013, word: "地下鉄", furigana: "ちかてつ", pos: "Danh từ", sinoViet: "ĐỊA HẠ THIẾT", meaning: "Tàu điện ngầm", example: "地下鉄で通勤しています。", exampleVi: "Tôi đi làm bằng tàu điện ngầm.", category: "n4_kanji", learned: false },
-      { id: 1014, word: "地震", furigana: "じしん", pos: "Danh từ", sinoViet: "ĐỊA CHẤN", meaning: "Động đất", example: "昨夜強い地震がありました。", exampleVi: "Đêm qua đã xảy ra trận động đất mạnh.", category: "n4_kanji", learned: false },
-      { id: 1015, word: "正しい", furigana: "ただしい", pos: "Tính từ đuôi い", sinoViet: "CHÍNH", meaning: "Đúng, chính xác", example: "正しい答えを選んでください。", exampleVi: "Hãy chọn câu trả lời đúng.", category: "n4_kanji", learned: false },
-      { id: 1016, word: "切ります", furigana: "きります", pos: "Động từ", sinoViet: "THIẾT", meaning: "Cắt, ngắt", example: "紙をはさみで切ります。", exampleVi: "Cắt giấy bằng kéo.", category: "n4_kanji", learned: false },
-      { id: 1017, word: "切符", furigana: "きっぷ", pos: "Danh từ", sinoViet: "THIẾT PHÙ", meaning: "Vé (xe buýt, tàu)", example: "駅で電車の切符を買いました。", exampleVi: "Tôi đã mua vé tàu ở nhà ga.", category: "n4_kanji", learned: false },
-      { id: 1018, word: "親切", furigana: "しんせつ", pos: "Tính từ đuôi な", sinoViet: "THÂN THIẾT", meaning: "Thân thiện, tử tế", example: "店員さんはとても親切でした。", exampleVi: "Nhân viên cửa hàng rất thân thiện.", category: "n4_kanji", learned: false },
-      { id: 1019, word: "締め切り", furigana: "しめきり", pos: "Danh từ", sinoViet: "ĐẾ THIẾT", meaning: "Hạn chót, deadline", example: "締め切りに間に合いました。", exampleVi: "Tôi đã kịp hạn chót.", category: "n4_kanji", learned: false },
-      { id: 1020, word: "決めます", furigana: "きめます", pos: "Động từ", sinoViet: "QUYẾT", meaning: "Quyết định (cái gì đó)", example: "進路を自分で決めました。", exampleVi: "Tôi tự quyết định con đường tương lai của mình.", category: "n4_kanji", learned: false },
-      { id: 1021, word: "試験", furigana: "しけん", pos: "Danh từ", sinoViet: "THÍ NGHIỆM", meaning: "Kỳ thi, bài thi", example: "JLPTの試験に向けて勉強します。", exampleVi: "Học tập chuẩn bị cho kỳ thi JLPT.", category: "n4_kanji", learned: false },
-      { id: 1022, word: "計画", furigana: "けいかく", pos: "Danh từ", sinoViet: "KẾ HOẠCH", meaning: "Kế hoạch", example: "旅行の計画を立てる。", exampleVi: "Lập kế hoạch du lịch.", category: "n4_kanji", learned: false },
-      { id: 1023, word: "説明", furigana: "せつめい", pos: "Danh từ/Động từ", sinoViet: "THUYẾT MINH", meaning: "Giải thích", example: "使い方を分かりやすく説明する。", exampleVi: "Giải thích cách sử dụng một cách dễ hiểu.", category: "n4_kanji", learned: false },
-      { id: 1024, word: "安心", furigana: "あんしん", pos: "Danh từ/Động từ", sinoViet: "AN TÂM", meaning: "Yên tâm, an lòng", example: "合格と聞いて安心しました。", exampleVi: "Nghe tin đỗ tôi đã rất yên tâm.", category: "n4_kanji", learned: false },
-      { id: 1025, word: "心配", furigana: "しんぱい", pos: "Danh từ/Động từ", sinoViet: "TÂM PHỐI", meaning: "Lo lắng", example: "親に心配をかけたくない。", exampleVi: "Tôi không muốn để bố mẹ phải lo lắng.", category: "n4_kanji", learned: false },
-      { id: 1026, word: "予約", furigana: "よやく", pos: "Danh từ/Động từ", sinoViet: "DỰ ƯỚC", meaning: "Đặt trước, hẹn trước", example: "ホテルの部屋を予約しました。", exampleVi: "Tôi đã đặt trước phòng khách sạn.", category: "n4_kanji", learned: false },
-      { id: 1027, word: "天気予報", furigana: "てんきよほう", pos: "Danh từ", sinoViet: "THIÊN KHÍ DỰ BÁO", meaning: "Dự báo thời tiết", example: "天気予報によると明日は晴れです。", exampleVi: "Theo dự báo thời tiết thì ngày mai trời nắng.", category: "n4_kanji", learned: false },
-      { id: 1028, word: "約束", furigana: "やくそく", pos: "Danh từ", sinoViet: "ƯỚC THÚC", meaning: "Lời hứa, cuộc hẹn", example: "友だちと会う約束がある。", exampleVi: "Tôi có hẹn gặp bạn thân.", category: "n4_kanji", learned: false },
-      { id: 1029, word: "急に", furigana: "きゅうに", pos: "Phó từ", sinoViet: "CẤP", meaning: "Đột nhiên", example: "急に雨が降り出しました。", exampleVi: "Trời đột nhiên đổ mưa.", category: "n4_kanji", learned: false },
-      { id: 1030, word: "救急車", furigana: "きゅうきゅうしゃ", pos: "Danh từ", sinoViet: "CỨU CẤP XA", meaning: "Xe cấp cứu", example: "救急車を呼んでください。", exampleVi: "Xin hãy gọi xe cấp cứu giúp tôi.", category: "n4_kanji", learned: false },
-
-      // =================== NHÓM 2: TỪ VỰNG N4 ===================
-      { id: 2001, word: "高校生", furigana: "こうこうせい", pos: "Danh từ", sinoViet: "CAO HIỆU SINH", meaning: "Học sinh trung học phổ thông", example: "妹は今年高校生になります。", exampleVi: "Em gái tôi năm nay lên cấp ba.", category: "n4_vocab", learned: false },
-      { id: 2002, word: "成績", furigana: "せいせき", pos: "Danh từ", sinoViet: "THÀNH TÍCH", meaning: "Thành tích, kết quả học tập", example: "今学期は成績が上がりました。", exampleVi: "Học kỳ này thành tích của tôi đã tăng lên.", category: "n4_vocab", learned: false },
-      { id: 2003, word: "教科書", furigana: "きょうかしょ", pos: "Danh từ", sinoViet: "GIÁO KHOA THƯ", meaning: "Sách giáo khoa", example: "教科書の50ページを開いてください。", exampleVi: "Xin hãy mở sách giáo khoa trang 50.", category: "n4_vocab", learned: false },
-      { id: 2004, word: "作文", furigana: "さくぶん", pos: "Danh từ", sinoViet: "TÁC VĂN", meaning: "Bài tập làm văn", example: "将来の夢について作文を書く。", exampleVi: "Viết bài văn về ước mơ tương lai.", category: "n4_vocab", learned: false },
-      { id: 2005, word: "黒板", furigana: "こくばん", pos: "Danh từ", sinoViet: "HẮC BẢN", meaning: "Bảng đen", example: "黒板の字をノートに写します。", exampleVi: "Chép chữ trên bảng đen vào vở.", category: "n4_vocab", learned: false },
-      { id: 2006, word: "折り紙", furigana: "おりがみ", pos: "Danh từ", sinoViet: "CHIẾT CHỈ", meaning: "Nghệ thuật gấp giấy Origami", example: "子どもと折り紙で鶴を折りました。", exampleVi: "Tôi cùng con gấp hạc bằng giấy Origami.", category: "n4_vocab", learned: false },
-      { id: 2007, word: "保険証", furigana: "ほけんしょう", pos: "Danh từ", sinoViet: "BẢO HIỂM CHỨNG", meaning: "Thẻ bảo hiểm y tế", example: "病院で保険証を提示する。", exampleVi: "Xuất trình thẻ bảo hiểm tại bệnh viện.", category: "n4_vocab", learned: false },
-      { id: 2008, word: "契約書", furigana: "けいやくしょ", pos: "Danh từ", sinoViet: "KHẾ ƯỚC THƯ", meaning: "Bản hợp đồng", example: "契約書にサインをします。", exampleVi: "Ký tên vào bản hợp đồng.", category: "n4_vocab", learned: false },
-      { id: 2009, word: "消費税", furigana: "しょうひぜい", pos: "Danh từ", sinoViet: "TIÊU PHÍ THUẾ", meaning: "Thuế tiêu dùng", example: "日本の消費税は現在10%です。", exampleVi: "Thuế tiêu dùng ở Nhật hiện tại là 10%.", category: "n4_vocab", learned: false },
-      { id: 2010, word: "税込み", furigana: "ぜいこみ", pos: "Danh từ", sinoViet: "THUẾ DỰ", meaning: "Đã bao gồm thuế", example: "表示価格は税込みです。", exampleVi: "Giá hiển thị đã bao gồm thuế.", category: "n4_vocab", learned: false },
-      { id: 2011, word: "おつり", furigana: "おつり", pos: "Danh từ", sinoViet: "-", meaning: "Tiền thừa, tiền thối lại", example: "おつりを受け取るのを忘れた。", exampleVi: "Tôi quên nhận lại tiền thừa.", category: "n4_vocab", learned: false },
-      { id: 2012, word: "お客様", furigana: "おきゃくさま", pos: "Danh từ", sinoViet: "KHÁCH DẠNG", meaning: "Quý khách, khách hàng", example: "お客様を丁寧にご案内します。", exampleVi: "Hướng dẫn quý khách một cách chu đáo.", category: "n4_vocab", learned: false },
-      { id: 2013, word: "有休", furigana: "ゆうきゅう", pos: "Danh từ", sinoViet: "HỮU HƯU", meaning: "Nghỉ phép có lương", example: "来週有休を取って旅行します。", exampleVi: "Tuần sau tôi xin nghỉ phép có lương để đi chơi.", category: "n4_vocab", learned: false },
-      { id: 2014, word: "給料", furigana: "きゅうりょう", pos: "Danh từ", sinoViet: "CẤP LIÊU", meaning: "Tiền lương", example: "初任給で両親にプレゼントを買った。", exampleVi: "Tôi đã mua quà cho bố mẹ bằng tháng lương đầu tiên.", category: "n4_vocab", learned: false },
-      { id: 2015, word: "同僚", furigana: "どうりょう", pos: "Danh từ", sinoViet: "ĐỒNG LIÊU", meaning: "Đồng nghiệp", example: "会社の同僚とランチを食べました。", exampleVi: "Ăn trưa cùng với đồng nghiệp trong công ty.", category: "n4_vocab", learned: false },
-      { id: 2016, word: "上司", furigana: "じょうし", pos: "Danh từ", sinoViet: "THƯỢNG TI", meaning: "Cấp trên", example: "上司に報告書を提出しました。", exampleVi: "Tôi đã nộp báo cáo cho sếp.", category: "n4_vocab", learned: false },
-      { id: 2017, word: "部下", furigana: "ぶか", pos: "Danh từ", sinoViet: "BỘ HẠ", meaning: "Cấp dưới", example: "部下の指導を担当している。", exampleVi: "Tôi phụ trách hướng dẫn nhân viên cấp dưới.", category: "n4_vocab", learned: false },
-      { id: 2018, word: "お金持ち", furigana: "おかねもち", pos: "Danh từ", sinoViet: "KIM TRÌ", meaning: "Người giàu có", example: "あの一家はお金持ちで有名だ。", exampleVi: "Gia đình đó nổi tiếng là giàu có.", category: "n4_vocab", learned: false },
-      { id: 2019, word: "できるだけ", furigana: "できるだけ", pos: "Phó từ", sinoViet: "-", meaning: "Trong khả năng có thể, cố gắng hết mức", example: "できるだけ早くご連絡ください。", exampleVi: "Xin vui lòng liên lạc lại càng sớm càng tốt.", category: "n4_vocab", learned: false },
-      { id: 2020, word: "少しずつ", furigana: "すこしずつ", pos: "Phó từ", sinoViet: "THIỂU", meaning: "Từng chút một", example: "日本語が少しずつ上手になってきた。", exampleVi: "Tiếng Nhật đang tiến bộ từng chút một.", category: "n4_vocab", learned: false },
-
-      // =================== NHÓM 3: CHỮ HÁN N3 ===================
-      { id: 3001, word: "習慣", furigana: "しゅうかん", pos: "Danh từ", sinoViet: "TẬP QUÁN", meaning: "Thói quen, tập quán", example: "早寝早起きの習慣をつける。", exampleVi: "Tập thói quen ngủ sớm dậy sớm.", category: "n3_kanji", learned: false },
-      { id: 3002, word: "原因", furigana: "げんいん", pos: "Danh từ", sinoViet: "NGUYÊN NHÂN", meaning: "Nguyên nhân, căn nguyên", example: "失敗の原因を分析する。", exampleVi: "Phân tích nguyên nhân dẫn tới thất bại.", category: "n3_kanji", learned: false },
-      { id: 3003, word: "感情", furigana: "かんじょう", pos: "Danh từ", sinoViet: "CẢM TÌNH", meaning: "Cảm xúc, tình cảm", example: "感情的にならず冷静に話そう。", exampleVi: "Đừng để bị cảm xúc chi phối, hãy bình tĩnh nói chuyện.", category: "n3_kanji", learned: false },
-      { id: 3004, word: "情報", furigana: "じょうほう", pos: "Danh từ", sinoViet: "TÌNH BÁO", meaning: "Thông tin, tin tức", example: "インターネットで最新の情報を得る。", exampleVi: "Tìm kiếm thông tin mới nhất trên mạng internet.", category: "n3_kanji", learned: false },
-      { id: 3005, word: "申し訳ない", furigana: "もうしわけない", pos: "Cụm từ", sinoViet: "THÂN DỊCH", meaning: "Xin lỗi, lấy làm áy náy", example: "ご迷惑をおかけして申し訳ありません。", exampleVi: "Thành thật xin lỗi vì đã gây phiền phức.", category: "n3_kanji", learned: false },
-      { id: 3006, word: "相談", furigana: "そうだん", pos: "Danh từ/Động từ", sinoViet: "TƯƠNG ĐÀM", meaning: "Thảo luận, trao đổi, bàn bạc", example: "先生に進路の相談をしました。", exampleVi: "Tôi đã trao đổi với thầy giáo về định hướng tương lai.", category: "n3_kanji", learned: false },
-      { id: 3007, word: "相変わらず", furigana: "あいかわらず", pos: "Phó từ", sinoViet: "TƯƠNG BIẾN", meaning: "Như mọi khi, không thay đổi", example: "彼は相変わらず元気そうだ。", exampleVi: "Anh ấy trông vẫn khỏe mạnh như mọi khi.", category: "n3_kanji", learned: false },
-      { id: 3008, word: "繰り返す", furigana: "くりかえす", pos: "Động từ", sinoViet: "SÀO PHẢN", meaning: "Lặp đi lặp lại", example: "同じ間違いを繰り返さないようにする。", exampleVi: "Cố gắng không lặp lại lỗi lầm tương tự.", category: "n3_kanji", learned: false },
-      { id: 3009, word: "提案", furigana: "ていあん", pos: "Danh từ/Động từ", sinoViet: "ĐỀ ÁN", meaning: "Đề xuất, đề nghị", example: "新しい業務改善案を提案した。", exampleVi: "Tôi đã đề xuất phương án cải tiến công việc mới.", category: "n3_kanji", learned: false },
-      { id: 3010, word: "重要", furigana: "じゅうよう", pos: "Tính từ đuôi な", sinoViet: "TRỌNG YẾU", meaning: "Quan trọng", example: "これは非常に重要な書類です。", exampleVi: "Đây là tập tài liệu cực kỳ quan trọng.", category: "n3_kanji", learned: false },
-      { id: 3011, word: "必要", furigana: "ひつよう", pos: "Tính từ đuôi な", sinoViet: "TẤT YẾU", meaning: "Cần thiết", example: "ビザの申請に必要な書類を集める。", exampleVi: "Thu thập các giấy tờ cần thiết để xin visa.", category: "n3_kanji", learned: false },
-      { id: 3012, word: "受験", furigana: "じゅけん", pos: "Danh từ/Động từ", sinoViet: "THỤ NGHIỆM", meaning: "Dự thi, tham gia thi cử", example: "大学受験の準備を進めています。", exampleVi: "Tôi đang xúc tiến việc chuẩn bị thi đại học.", category: "n3_kanji", learned: false },
-      { id: 3013, word: "禁煙", furigana: "きんえん", pos: "Danh từ", sinoViet: "CẤM YÊN", meaning: "Cấm hút thuốc, cai thuốc", example: "館内は全席禁煙となっております。", exampleVi: "Trong tòa nhà toàn bộ các chỗ ngồi đều cấm hút thuốc.", category: "n3_kanji", learned: false },
-      { id: 3014, word: "健康診断", furigana: "けんこうしんだん", pos: "Danh từ", sinoViet: "KIỆN KHANG CHẨN ĐOÁN", meaning: "Khám sức khỏe định kỳ", example: "年に一度健康診断を受けます。", exampleVi: "Mỗi năm tôi đi kiểm tra sức khỏe một lần.", category: "n3_kanji", learned: false },
-      { id: 3015, word: "演劇", furigana: "えんげき", pos: "Danh từ", sinoViet: "DIỄN KỊCH", meaning: "Vở kịch, diễn kịch", example: "劇場へ演劇を観に行きました。", exampleVi: "Tôi đã đến nhà hát để xem kịch.", category: "n3_kanji", learned: false },
-      { id: 3016, word: "払い戻す", furigana: "はらいもどす", pos: "Động từ", sinoViet: "PHẤT LỆ", meaning: "Hoàn tiền, trả lại tiền vé", example: "使わなかった切符を払い戻す。", exampleVi: "Hoàn lại tiền vé tàu chưa sử dụng.", category: "n3_kanji", learned: false },
-
-      // =================== NHÓM 4: ĐỘNG TỪ N3 ===================
-      { id: 4001, word: "解ける", furigana: "とける", pos: "Động từ tự thân", sinoViet: "GIẢI", meaning: "Được giải quyết, tháo gỡ (nút thắt, hiểu lầm)", example: "誤解が解けて仲直りした。", exampleVi: "Hiểu lầm đã được giải tỏa và hai người đã làm lành.", category: "n3_verbs", learned: false },
-      { id: 4002, word: "解く", furigana: "ほどく", pos: "Tha động từ", sinoViet: "GIẢI", meaning: "Tháo, cởi, gỡ", example: "靴のひもをほどいて脱ぐ。", exampleVi: "Tháo dây giày ra rồi cởi giày.", category: "n3_verbs", learned: false },
-      { id: 4003, word: "加わる", furigana: "くわわる", pos: "Động từ", sinoViet: "GIA", meaning: "Tham gia, được thêm vào", example: "新しいメンバーがチームに加わった。", exampleVi: "Thành viên mới đã gia nhập vào đội ngũ.", category: "n3_verbs", learned: false },
-      { id: 4004, word: "広がる", furigana: "ひろがる", pos: "Động từ", sinoViet: "QUẢNG", meaning: "Lan rộng, trải rộng ra", example: "窓から青空が広がっている。", exampleVi: "Từ cửa sổ nhìn ra là bầu trời xanh trải rộng.", category: "n3_verbs", learned: false },
-      { id: 4005, word: "混ぜる", furigana: "まぜる", pos: "Động từ", sinoViet: "HỖN", meaning: "Trộn, hòa lẫn, khuấy", example: "卵と牛乳をよく混ぜてください。", exampleVi: "Hãy trộn đều trứng và sữa với nhau.", category: "n3_verbs", learned: false },
-      { id: 4006, word: "冷める", furigana: "さめる", pos: "Động từ", sinoViet: "LÃNH", meaning: "Nguội đi, mất hứng", example: "スープが冷めないうちにどうぞ。", exampleVi: "Xin mời dùng súp khi còn nóng sốt.", category: "n3_verbs", learned: false },
-      { id: 4007, word: "延びる", furigana: "のびる", pos: "Động từ", sinoViet: "DUYÊN", meaning: "Bị hoãn, dời sang lúc khác, kéo dài", example: "雨のため試合が明日に延びた。", exampleVi: "Vì mưa nên trận đấu bị dời sang ngày mai.", category: "n3_verbs", learned: false },
-      { id: 4008, word: "助かる", furigana: "たすかる", pos: "Động từ", sinoViet: "TRỢ", meaning: "Được cứu giúp, đỡ quá/may quá", example: "手伝ってくれて本当に助かりました。", exampleVi: "Nhờ bạn giúp đỡ mà tôi đỡ quá, cảm ơn nhiều.", category: "n3_verbs", learned: false },
-      { id: 4009, word: "含む", furigana: "ふくむ", pos: "Động từ", sinoViet: "HÀM", meaning: "Chứa, bao gồm", example: "この果物にはビタミンCが多く含まれる。", exampleVi: "Trái cây này chứa rất nhiều vitamin C.", category: "n3_verbs", learned: false },
-      { id: 4010, word: "ぶつかる", furigana: "ぶつかる", pos: "Động từ", sinoViet: "-", meaning: "Va vào, đụng phải, xung đột", example: "交差点で車がぶつかった。", exampleVi: "Hai ô tô va chạm nhau tại ngã tư.", category: "n3_verbs", learned: false },
-      { id: 4011, word: "当たる", furigana: "あたる", pos: "Động từ", sinoViet: "ĐƯƠNG", meaning: "Trúng (xổ số), đoán đúng", example: "宝くじで一等賞が当たった。", exampleVi: "Tôi đã trúng giải nhất xổ số.", category: "n3_verbs", learned: false },
-      { id: 4012, word: "流れる", furigana: "ながれる", pos: "Động từ", sinoViet: "LƯU", meaning: "Chảy, trôi, lan truyền", example: "川の水が静かに流れている。", exampleVi: "Nước sông đang chảy êm đềm.", category: "n3_verbs", learned: false },
-
-      // =================== NHÓM 5: TIỀN TỐ & HẬU TỐ N3 ===================
-      { id: 5001, word: "〜用", furigana: "〜よう", pos: "Hậu tố", sinoViet: "DỤNG", meaning: "Dùng cho, dành riêng cho ~", example: "これは子ども用の自転車です。", exampleVi: "Đây là xe đạp dành riêng cho trẻ em.", category: "n3_affix", learned: false },
-      { id: 5002, word: "〜料", furigana: "〜りょう", pos: "Hậu tố", sinoViet: "LIÊU", meaning: "Tiền phí, chi phí dịch vụ", example: "美術館の入場料を払う。", exampleVi: "Thanh toán tiền vé vào cổng bảo tàng mỹ thuật.", category: "n3_affix", learned: false },
-      { id: 5003, word: "〜費", furigana: "〜ひ", pos: "Hậu tố", sinoViet: "PHÍ", meaning: "Khoản chi phí sinh hoạt/học tập", example: "毎月の生活費を計算する。", exampleVi: "Tính toán chi phí sinh hoạt hàng tháng.", category: "n3_affix", learned: false },
-      { id: 5004, word: "〜代", furigana: "〜だい", pos: "Hậu tố", sinoViet: "ĐẠI", meaning: "Tiền trả cho dịch vụ (điện, nước, ăn)", example: "今月の電気代が高かった。", exampleVi: "Tiền điện tháng này hơi cao.", category: "n3_affix", learned: false },
-      { id: 5005, word: "高収入", furigana: "こうしゅうにゅう", pos: "Danh từ", sinoViet: "CAO THU NHẬP", meaning: "Thu nhập cao", example: "彼は高収入の仕事に転職した。", exampleVi: "Anh ấy đã chuyển sang một công việc có thu nhập cao.", category: "n3_affix", learned: false },
-      { id: 5006, word: "再確認", furigana: "さいかくにん", pos: "Danh từ/Động từ", sinoViet: "TÁI XÁC NHẬN", meaning: "Xác nhận lại, kiểm tra lại", example: "出発前にもう一度再確認してください。", exampleVi: "Xin hãy kiểm tra lại một lần nữa trước khi xuất phát.", category: "n3_affix", learned: false },
-      { id: 5007, word: "低価格", furigana: "ていかかく", pos: "Danh từ", sinoViet: "ĐÊ GIÁ CÁCH", meaning: "Giá rẻ, giá thấp", example: "低価格で高品質な商品を提供する。", exampleVi: "Cung cấp sản phẩm chất lượng cao với mức giá rẻ.", category: "n3_affix", learned: false },
-      { id: 5008, word: "真っ暗", furigana: "まっくら", pos: "Tính từ đuôi な", sinoViet: "CHÂN ÁM", meaning: "Tối om, tối đen như mực", example: "停電で部屋が真っ暗になった。", exampleVi: "Do mất điện nên căn phòng tối om.", category: "n3_affix", learned: false },
-
-      // =================== NHÓM 6: KATAKANA N3 ===================
-      { id: 6001, word: "ストレス", furigana: "ストレス", pos: "Danh từ", sinoViet: "Stress", meaning: "Căng thẳng, áp lực", example: "ストレスをためないように気を付ける。", exampleVi: "Chú ý đừng để bị tích tụ căng thẳng quá mức.", category: "n3_katakana", learned: false },
-      { id: 6002, word: "スケジュール", furigana: "スケジュール", pos: "Danh từ", sinoViet: "Schedule", meaning: "Lịch trình, thời khóa biểu", example: "明日のスケジュールを調整する。", exampleVi: "Điều chỉnh lại lịch trình ngày mai.", category: "n3_katakana", learned: false },
-      { id: 6003, word: "アンケート", furigana: "アンケート", pos: "Danh từ", sinoViet: "Enquête", meaning: "Phiếu khảo sát ý kiến", example: "アンケートに正直に回答する。", exampleVi: "Trả lời bài khảo sát một cách trung thực.", category: "n3_katakana", learned: false },
-      { id: 6004, word: "マナー", furigana: "マナー", pos: "Danh từ", sinoViet: "Manner", meaning: "Phép lịch sự, văn hóa ứng xử", example: "電車内でのマナーを守りましょう。", exampleVi: "Hãy giữ gìn phép lịch sự khi đi trên tàu điện.", category: "n3_katakana", learned: false },
-      { id: 6005, word: "パンフレット", furigana: "パンフレット", pos: "Danh từ", sinoViet: "Pamphlet", meaning: "Tờ gấp, tập tài liệu quảng cáo", example: "観光案内所でパンフレットをもらった。", exampleVi: "Tôi nhận được tờ gấp hướng dẫn tại trung tâm du lịch.", category: "n3_katakana", learned: false },
-      { id: 6006, word: "プロジェクト", furigana: "プロジェクト", pos: "Danh từ", sinoViet: "Project", meaning: "Dự án", example: "新しいプロジェクトのリーダーに選ばれた。", exampleVi: "Tôi được chọn làm trưởng nhóm của dự án mới.", category: "n3_katakana", learned: false }
-    ];
-
-    // Chuyên đề ngữ pháp
-    const GRAMMAR_TOPICS = [
-      {
-        id: "n4_condition",
-        title: "Các mẫu câu điều kiện N4: ～たら, ～ば, ～なら",
-        level: "Nền tảng N4",
-        icon: "fa-code-branch",
-        description: "Phương pháp phân biệt chuẩn xác nếu - thì trong các tình huống thực tế.",
-        content: `
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-100">
-              <h4 class="font-bold text-rose-900 mb-1">1. V-たら (Nếu / Sau khi...)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Dùng phổ biến nhất trong văn nói thường ngày. Vế sau có thể đi với câu mệnh lệnh, rủ rê hoặc ý chí cá nhân.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp">
-                雨が<strong>降ったら</strong>、出かけません。(Nếu trời mưa tôi sẽ không đi ra ngoài.)
-              </div>
-            </div>
-            <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
-              <h4 class="font-bold text-indigo-900 mb-1">2. V-ば / A-ければ (Điều kiện giả định tất yếu)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Nhấn mạnh điều kiện tiên quyết để hành động sau diễn ra. Vế sau không đi với câu mệnh lệnh hay rủ rê.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-indigo-200 font-jp">
-                安<strong>ければ</strong>、たくさん買います。(Nếu rẻ thì tôi sẽ mua nhiều.)
-              </div>
-            </div>
-          </div>
-        `
-      },
-      {
-        id: "n3_hazu",
-        title: "Cấu trúc chắc chắn & phán đoán: ～はずだ & ～はずがない",
-        level: "Trọng tâm N3",
-        icon: "fa-certificate",
-        description: "Cách phán đoán dựa trên lý do logic và bằng chứng rõ ràng.",
-        content: `
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-              <h4 class="font-bold text-slate-800 mb-1">1. ～はずだ (Chắc chắn là...)</h4>
-              <p class="text-sm text-slate-600">Đưa ra nhận định dựa trên cơ sở chắc chắn.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-slate-200 font-jp">
-                彼は日本に10年も住んでいるから、日本語がペラペラな<strong>はずだ</strong>。<br>
-                (Anh ấy đã sống ở Nhật 10 năm nên chắc chắn nói tiếng Nhật rất trôi chảy.)
-              </div>
-            </div>
-            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200">
-              <h4 class="font-bold text-amber-900 mb-1">2. ～はずがない / わけがない (Chắc chắn không thể nào...)</h4>
-              <p class="text-sm text-slate-700">Phủ định mạnh mẽ một sự việc trái với lý lẽ thông thường.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-amber-200 font-jp">
-                真面目な田中さんが嘘をつく<strong>はずがない</strong>。<br>
-                (Người nghiêm túc như anh Tanaka chắc chắn không thể nào nói dối được.)
-              </div>
-            </div>
-          </div>
-        `
-      },
-      {
-        id: "n3_beki",
-        title: "Mẫu câu khuyên nhủ & đạo đức: ～べきだ / べきではない",
-        level: "Trọng tâm N3",
-        icon: "fa-scale-balanced",
-        description: "Biểu thị điều đương nhiên nên hoặc không nên làm theo quy tắc xã hội.",
-        content: `
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
-              <h4 class="font-bold text-emerald-900 mb-1">Cấu trúc: V-る + べきだ / べきではない</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Thể hiện nghĩa vụ mang tính đạo lý, lương tâm. Lưu ý: Động từ する có thể chia thành すべきだ hoặc するべきだ.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-emerald-200 font-jp">
-                借りたお金は期日までに返す<strong>べきだ</strong>。<br>
-                (Tiền đã vay mượn thì nên hoàn trả đúng kỳ hạn.)
-              </div>
-            </div>
-          </div>
-        `
-      },
-      {
-        id: "n3_relation",
-        title: "Chủ đề thảo luận & phạm vi: ～に関して & ～にわたって",
-        level: "Trọng tâm N3",
-        icon: "fa-link",
-        description: "Mẫu câu dùng liên quan đến vấn đề thảo luận và phạm vi thời gian/không gian.",
-        content: `
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100">
-              <h4 class="font-bold text-blue-900 mb-1">1. N + に関して (Liên quan đến N / Về đề tài N)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Tương tự như について nhưng trang trọng hơn, xuất hiện phổ biến trong bài đọc thi JLPT.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-blue-200 font-jp">
-                環境汚染<strong>に関して</strong>レポートを書きました。(Tôi đã viết bài báo cáo liên quan đến ô nhiễm môi trường.)
-              </div>
-            </div>
-            <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100">
-              <h4 class="font-bold text-purple-900 mb-1">2. N + にわたって (Trải suốt / Kéo dài suốt...)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Đi kèm với các từ chỉ khoảng thời gian, số lần hoặc không gian rộng lớn.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-purple-200 font-jp">
-                会議は3時間に<strong>わたって</strong>続けられた。(Cuộc họp đã kéo dài suốt 3 tiếng đồng hồ.)
-              </div>
-            </div>
-          </div>
-        `
-      }
-    ];
-
-    // Bộ câu hỏi trắc nghiệm
-    const QUIZ_QUESTIONS = [
-      {
-        question: "Chữ Hán '締' trong từ '締め切り' có cách đọc Hiragana đúng là gì?",
-        badge: "HÁN TỰ N4",
-        options: ["しめきり", "きめきり", "とめきり", "ひめきり"],
-        correct: 0,
-        explanation: "'締め切り' đọc là しめきり, mang nghĩa là 'hạn chót, thời hạn nộp bài'."
-      },
-      {
-        question: "Từ nào dưới đây mang ý nghĩa là 'Lấy làm tiếc, thành thật xin lỗi'?",
-        badge: "TỪ VỰNG N3",
-        options: ["申し訳ない", "相変わらず", "いい加減", "お気に入り"],
-        correct: 0,
-        explanation: "'申し訳ない' (もうしわけない) mang nghĩa xin lỗi, lấy làm áy náy."
-      },
-      {
-        question: "Chọn dạng đúng: '約束は守る_____。'",
-        badge: "NGỮ PHÁP N3",
-        options: ["べきだ", "ことだ", "はずだ", "ようだ"],
-        correct: 0,
-        explanation: "Cấu trúc 'V-る + べきだ' thể hiện nghĩa vụ đạo đức: 'Đã hứa thì nên giữ lời'."
-      },
-      {
-        question: "Từ '有休' trong môi trường công sở Nhật Bản có nghĩa là gì?",
-        badge: "TỪ VỰNG N4",
-        options: ["Làm thêm ngoài giờ", "Nghỉ phép có lương", "Nghỉ việc không lương", "Đi công tác xa"],
-        correct: 1,
-        explanation: "'有休' (ゆうきゅう) là cách gọi tắt của '有給休暇' (nghỉ phép có hưởng lương)."
-      },
-      {
-        question: "Điền mẫu câu: '3日間に_____、激しい雨が降り続いた。'",
-        badge: "NGỮ PHÁP N3",
-        options: ["にわたって", "に関して", "に反して", "に対して"],
-        correct: 0,
-        explanation: "'N + にわたって' diễn tả sự việc trải dài, kéo dài suốt một khoảng thời gian: 'Suốt 3 ngày liền, mưa to liên tục'."
-      }
-    ];
-
-    /* ----------------------------------------------------
-       2. TRẠNG THÁI ỨNG DỤNG
-       ---------------------------------------------------- */
-    let vocabulary = [];
-    let currentCategory = 'n4_kanji';
-    let currentCardIndex = 0;
-    let isFlipped = false;
-    let autoPlayInterval = null;
-    let activeAudio = null;
-
-    let quizCurrentIdx = 0;
-    let quizScoreCorrect = 0;
-    let quizScoreWrong = 0;
-    let quizAnswered = false;
-
-    let currentGrammarTopicId = 'n4_condition';
-    let currentUser = null;
-    let isTopicsOpen = true;
-    let isCardExpanded = false;
-
-    let userStreak = {
-      count: 1,
-      lastDate: new Date().toISOString().slice(0, 10)
-    };
-
-    function getTodayString() {
-      return new Date().toISOString().slice(0, 10);
-    }
-
-    function toggleStreakPopup(event) {
-      if (event) event.stopPropagation();
-      document.getElementById('streak-popup').classList.toggle('hidden');
-    }
-
-    document.addEventListener('click', (e) => {
-      const popup = document.getElementById('streak-popup');
-      const btn = document.getElementById('streak-badge-btn');
-      if (popup && !popup.classList.contains('hidden') && !popup.contains(e.target) && !btn.contains(e.target)) {
-        popup.classList.add('hidden');
-      }
-    });
-
-    function updateStreakDisplay() {
-      const countDisplay = document.getElementById('streak-count-display');
-      const popupNum = document.getElementById('popup-streak-num');
-      const flameIcon = document.getElementById('streak-flame-icon');
-      const statusLabel = document.getElementById('streak-status-label');
-      const today = getTodayString();
-
-      const count = userStreak.count || 1;
-      countDisplay.textContent = count;
-      popupNum.textContent = count;
-
-      if (userStreak.lastDate === today) {
-        flameIcon.className = "fa-solid fa-fire text-amber-500 text-base animate-bounce";
-        statusLabel.innerHTML = `<i class="fa-solid fa-circle-check"></i> Đã hoàn thành`;
-        statusLabel.className = "flex items-center gap-1 text-emerald-600";
-      } else {
-        flameIcon.className = "fa-solid fa-fire text-slate-400 text-base";
-        statusLabel.innerHTML = `<i class="fa-regular fa-clock"></i> Chưa hoàn thành`;
-        statusLabel.className = "flex items-center gap-1 text-amber-600";
-      }
-    }
-
-    function recordStreakActivity() {
-      const today = getTodayString();
-      if (!userStreak.lastDate) {
-        userStreak = { count: 1, lastDate: today };
-      } else if (userStreak.lastDate !== today) {
-        const last = new Date(userStreak.lastDate);
-        const curr = new Date(today);
-        const diffDays = Math.round((curr - last) / (1000 * 60 * 60 * 24));
-
-        if (diffDays === 1) {
-          userStreak.count = (userStreak.count || 0) + 1;
-          showToast(`🔥 Tuyệt vời! Streak đạt ${userStreak.count} ngày liên tiếp!`, "fa-fire");
-          confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
-        } else if (diffDays > 1) {
-          userStreak.count = 1;
-        }
-        userStreak.lastDate = today;
-      }
-      localStorage.setItem('nihongo_streak', JSON.stringify(userStreak));
-      updateStreakDisplay();
-    }
-
-    /* ----------------------------------------------------
-       3. KHẮC PHỤC TRIỆT ĐỂ LỖI ÂM THANH PHÁT ÂM TIẾNG NHẬT
-       ---------------------------------------------------- */
-    function cleanJapaneseText(text) {
-      if (!text) return "";
-      return String(text).replace(/[・·~〜\/\(\)（）\s]/g, '').trim();
-    }
-
-    // Cơ chế phát âm kép: Web Speech API chuẩn + Fallback Cloud Audio tức thì
-    function playJapaneseSpeech(text) {
-      const clean = cleanJapaneseText(text);
-      if (!clean) return;
-
-      // Dừng audio đang phát dở (nếu có)
-      if (activeAudio) {
-        activeAudio.pause();
-        activeAudio = null;
-      }
-
-      let spokenSuccessfully = false;
-
-      // 1. Thử dùng Web Speech API của trình duyệt
-      if ('speechSynthesis' in window) {
-        try {
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.resume(); // Khắc phục tình trạng paused ngầm trên Chrome
-
-          const utterance = new SpeechSynthesisUtterance(clean);
-          utterance.lang = 'ja-JP';
-          utterance.rate = 0.9;
-          utterance.pitch = 1.0;
-
-          const voices = window.speechSynthesis.getVoices();
-          if (voices && voices.length > 0) {
-            const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP' || v.lang.startsWith('ja'));
-            if (jaVoice) utterance.voice = jaVoice;
-          }
-
-          utterance.onstart = () => { spokenSuccessfully = true; };
-          window.speechSynthesis.speak(utterance);
-        } catch (err) {
-          console.warn("SpeechSynthesis error, chuyển sang Audio Fallback:", err);
-        }
-      }
-
-      // 2. Dự phòng: Nếu sau 120ms trình duyệt không kích hoạt tiếng, tự động phát qua Audio Stream
-      setTimeout(() => {
-        if (!spokenSuccessfully) {
-          try {
-            const encoded = encodeURIComponent(clean);
-            // Dùng audio endpoint chuẩn Google TTS cho tiếng Nhật
-            const audioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ja&client=tw-ob&q=${encoded}`;
-            activeAudio = new Audio(audioUrl);
-            activeAudio.play().catch(e => {
-              console.log("Audio play permission:", e);
-            });
-          } catch (e) {
-            console.error("Audio fallback failed:", e);
-          }
-        }
-      }, 120);
-    }
-
-    function handleSpeakCurrent(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      const list = getFilteredVocab();
-      if (list.length === 0) return;
-      const current = list[currentCardIndex];
-      // Ưu tiên đọc theo cách đọc Furigana để đúng âm Kun/On của từ vựng
-      playJapaneseSpeech(current.furigana || current.word);
-    }
-
-    function quickSpeak(wordText, event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      playJapaneseSpeech(wordText);
-    }
-
-    /* ----------------------------------------------------
-       4. ĐIỀU KHIỂN FLASHCARD & GIAO DIỆN
-       ---------------------------------------------------- */
-    function switchTab(tabName) {
-      ['flashcards', 'grammar', 'quiz'].forEach(tab => {
-        const secEl = document.getElementById(`section-${tab}`);
-        const navEl = document.getElementById(`nav-${tab}`);
-        if (tab === tabName) {
-          secEl.classList.remove('hidden');
-          navEl.classList.remove('text-slate-600', 'hover:bg-slate-100');
-          navEl.classList.add('bg-rose-600', 'text-white', 'shadow-sm', 'shadow-rose-500/20');
-        } else {
-          secEl.classList.add('hidden');
-          navEl.classList.add('text-slate-600', 'hover:bg-slate-100');
-          navEl.classList.remove('bg-rose-600', 'text-white', 'shadow-sm', 'shadow-rose-500/20');
-        }
-      });
-
-      if (tabName !== 'flashcards' && autoPlayInterval) {
-        toggleAutoPlay();
-      }
-    }
-
-    function getFilteredVocab() {
-      return vocabulary.filter(item => item.category === currentCategory);
-    }
-
-    function renderCategoryChips() {
-      const container = document.getElementById('category-chips');
-      const curTopic = CATEGORIES.find(c => c.id === currentCategory) || CATEGORIES[0];
-      
-      document.getElementById('current-topic-name').textContent = curTopic.name;
-      const totalCount = vocabulary.filter(v => v.category === currentCategory).length;
-      document.getElementById('current-topic-count').textContent = totalCount;
-
-      container.innerHTML = CATEGORIES.map((cat) => {
-        const isActive = cat.id === currentCategory;
-        const count = vocabulary.filter(v => v.category === cat.id).length;
-        const activeClasses = "bg-rose-600 text-white font-bold shadow-sm shadow-rose-500/20";
-        const inactiveClasses = "bg-slate-50 hover:bg-slate-100 text-slate-700 font-medium border border-slate-200/80";
-
-        return `
-          <button onclick="selectCategoryTopic('${cat.id}')" class="w-full px-3 py-2.5 rounded-xl text-xs sm:text-sm transition-all flex items-center justify-between text-left ${isActive ? activeClasses : inactiveClasses}">
-            <div class="flex items-center gap-2 truncate pr-2">
-              <i class="fa-solid ${cat.icon} text-xs shrink-0 ${isActive ? 'text-white' : 'text-slate-500'}"></i>
-              <span class="truncate">${cat.name}</span>
-            </div>
-            <span class="text-[10px] px-2 py-0.5 rounded-full shrink-0 font-bold ${isActive ? 'bg-white/20 text-white' : 'bg-white text-slate-600 border border-slate-200'}">${count}</span>
-          </button>
-        `;
-      }).join('');
-    }
-
-    function selectCategoryTopic(catId) {
-      currentCategory = catId;
-      currentCardIndex = 0;
-      isFlipped = false;
-      renderCategoryChips();
-      renderCurrentCard();
-      renderVocabularyTable();
-
-      isTopicsOpen = false;
-      document.getElementById('topics-panel').classList.add('hidden');
-      document.getElementById('topic-dropdown-arrow').classList.remove('rotate-180');
-      showToast(`Đã chọn: ${CATEGORIES.find(c => c.id === catId)?.name || 'Chủ đề'}`);
-    }
-
-    function toggleTopicDropdown() {
-      isTopicsOpen = !isTopicsOpen;
-      const panel = document.getElementById('topics-panel');
-      const arrow = document.getElementById('topic-dropdown-arrow');
-      if (isTopicsOpen) {
-        panel.classList.remove('hidden');
-        arrow.classList.add('rotate-180');
-      } else {
-        panel.classList.add('hidden');
-        arrow.classList.remove('rotate-180');
-      }
-    }
-
-    function renderCurrentCard() {
-      const list = getFilteredVocab();
-      const cardInner = document.getElementById('card-inner');
-
-      if (isFlipped) {
-        cardInner.classList.remove('rotate-y-180');
-        isFlipped = false;
-      }
-
-      if (list.length === 0) {
-        document.getElementById('card-word').textContent = "Trống";
-        document.getElementById('card-furigana').textContent = "";
-        document.getElementById('card-pos').textContent = "";
-        document.getElementById('card-sino-viet').textContent = "Chưa có từ";
-        document.getElementById('fc-counter').textContent = "0 / 0";
-        document.getElementById('fc-progressbar').style.width = '0%';
-        return;
-      }
-
-      if (currentCardIndex >= list.length) currentCardIndex = 0;
-      const item = list[currentCardIndex];
-
-      document.getElementById('card-word').textContent = item.word;
-      document.getElementById('card-furigana').textContent = item.furigana || '';
-      document.getElementById('card-pos').textContent = `(${item.pos || 'Từ vựng'})`;
-      
-      const sinoVietBox = document.getElementById('card-sino-viet');
-      if (item.sinoViet && item.sinoViet !== '-') {
-        sinoVietBox.textContent = `Hán Việt: ${item.sinoViet}`;
-        sinoVietBox.classList.remove('hidden');
-      } else {
-        sinoVietBox.classList.add('hidden');
-      }
-
-      const curCategoryObj = CATEGORIES.find(c => c.id === item.category);
-      document.getElementById('card-tag').textContent = curCategoryObj ? curCategoryObj.name.toUpperCase() : 'JLPT';
-
-      document.getElementById('card-back-word').textContent = item.word;
-      document.getElementById('card-back-romaji').textContent = `[${item.furigana || ''}]`;
-      document.getElementById('card-meaning').textContent = item.meaning;
-      document.getElementById('card-example').textContent = item.example || '例文がありません。';
-      document.getElementById('card-example-vi').textContent = item.exampleVi ? `"${item.exampleVi}"` : '';
-
-      document.getElementById('fc-counter').textContent = `Mục ${currentCardIndex + 1} / ${list.length}`;
-      const percentage = Math.round(((currentCardIndex + 1) / list.length) * 100);
-      document.getElementById('fc-progressbar').style.width = `${percentage}%`;
-
-      updateMasterUI(item.learned);
-    }
-
-    function updateMasterUI(isLearned) {
-      const badge = document.getElementById('fc-learned-badge');
-      const btn = document.getElementById('btn-master');
-      const icon = document.getElementById('master-icon');
-      const text = document.getElementById('master-text');
-
-      if (isLearned) {
-        badge.className = "px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold";
-        badge.textContent = "Đã nhớ";
-        btn.className = "px-5 py-3 bg-emerald-600 text-white font-bold rounded-2xl transition flex items-center gap-2 text-sm shadow-md active:scale-95";
-        icon.className = "fa-solid fa-circle-check text-base";
-        text.textContent = "Đã nhớ";
-      } else {
-        badge.className = "px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-bold";
-        badge.textContent = "Cần ôn tập";
-        btn.className = "px-5 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-bold rounded-2xl transition flex items-center gap-2 text-sm active:scale-95";
-        icon.className = "fa-regular fa-circle-check text-base";
-        text.textContent = "Đã nhớ";
-      }
-    }
-
-    function flipCard() {
-      const cardInner = document.getElementById('card-inner');
-      isFlipped = !isFlipped;
-      if (isFlipped) {
-        cardInner.classList.add('rotate-y-180');
-      } else {
-        cardInner.classList.remove('rotate-y-180');
-      }
-      recordStreakActivity();
-    }
-
-    function nextCard() {
-      const list = getFilteredVocab();
-      if (list.length <= 1) return;
-      currentCardIndex = (currentCardIndex + 1) % list.length;
-      renderCurrentCard();
-    }
-
-    function prevCard() {
-      const list = getFilteredVocab();
-      if (list.length <= 1) return;
-      currentCardIndex = (currentCardIndex - 1 + list.length) % list.length;
-      renderCurrentCard();
-    }
-
-    function shuffleCards() {
-      const list = getFilteredVocab();
-      if (list.length <= 1) return;
-      for (let i = list.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [list[i], list[j]] = [list[j], list[i]];
-      }
-      currentCardIndex = 0;
-      renderCurrentCard();
-      showToast("Đã xáo trộn danh sách thẻ!", "fa-shuffle");
-    }
-
-    function toggleAutoPlay() {
-      const btn = document.getElementById('btn-toggle-auto');
-      if (autoPlayInterval) {
-        clearInterval(autoPlayInterval);
-        autoPlayInterval = null;
-        btn.classList.remove('bg-rose-600', 'text-white');
-        btn.classList.add('text-slate-600');
-        showToast("Đã dừng tự động chuyển từ.");
-      } else {
-        btn.classList.add('bg-rose-600', 'text-white');
-        btn.classList.remove('text-slate-600');
-        showToast("Bật tự động lướt (4s/thẻ)");
-        autoPlayInterval = setInterval(() => {
-          if (!isFlipped) {
-            flipCard();
-          } else {
-            nextCard();
-          }
-        }, 3800);
-      }
-    }
-
-    function toggleMasteredCurrentCard() {
-      const list = getFilteredVocab();
-      if (list.length === 0) return;
-      const currentItem = list[currentCardIndex];
-      currentItem.learned = !currentItem.learned;
-      
-      saveVocabularyLocal();
-      updateMasterUI(currentItem.learned);
-      renderVocabularyTable();
-      recordStreakActivity();
-
-      if (currentItem.learned) {
-        confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
-        showToast(`Đã ghi nhớ: "${currentItem.word}"!`, "fa-circle-check");
-      } else {
-        showToast(`Đã chuyển "${currentItem.word}" về danh sách cần ôn.`);
-      }
-    }
-
-    function toggleExpandFlashcard(event) {
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-      isCardExpanded = !isCardExpanded;
-      const outerBox = document.getElementById('card-outer-box');
-      const controls = document.getElementById('card-controls');
-      const icon = document.getElementById('expand-card-icon');
-
-      if (isCardExpanded) {
-        outerBox.classList.remove('max-w-2xl', 'h-[380px]', 'sm:h-[410px]');
-        outerBox.classList.add('max-w-4xl', 'h-[450px]', 'sm:h-[490px]');
-        controls.classList.remove('max-w-2xl');
-        controls.classList.add('max-w-4xl');
-        icon.className = "fa-solid fa-compress text-sm";
-      } else {
-        outerBox.classList.add('max-w-2xl', 'h-[380px]', 'sm:h-[410px]');
-        outerBox.classList.remove('max-w-4xl', 'h-[450px]', 'sm:h-[490px]');
-        controls.classList.add('max-w-2xl');
-        controls.classList.remove('max-w-4xl');
-        icon.className = "fa-solid fa-expand text-sm";
-      }
-    }
-
-    /* ----------------------------------------------------
-       5. BẢNG TỪ VỰNG & TÌM KIẾM
-       ---------------------------------------------------- */
-    function renderVocabularyTable(searchQuery = '') {
-      const tbody = document.getElementById('vocab-tbody');
-      const list = getFilteredVocab().filter(item => {
-        if (!searchQuery) return true;
-        const q = searchQuery.toLowerCase();
-        return item.word.toLowerCase().includes(q) || 
-               (item.furigana && item.furigana.toLowerCase().includes(q)) ||
-               (item.sinoViet && item.sinoViet.toLowerCase().includes(q)) ||
-               item.meaning.toLowerCase().includes(q);
-      });
-
-      if (list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400">Không tìm thấy từ vựng nào.</td></tr>`;
-        return;
-      }
-
-      tbody.innerHTML = list.map(item => `
-        <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="selectCardById(${item.id})">
-          <td class="py-3 px-4 font-bold text-slate-900 flex items-center gap-2">
-            <span>${item.word}</span>
-            <button type="button" onclick="quickSpeak('${item.furigana || item.word}', event)" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 active:scale-95 transition" title="Nghe phát âm">
-              <i class="fa-solid fa-volume-high text-xs"></i>
-            </button>
-          </td>
-          <td class="py-3 px-4 text-xs font-semibold text-rose-600">${item.furigana || '-'}</td>
-          <td class="py-3 px-4 text-xs font-bold uppercase text-slate-500">${item.sinoViet || '-'}</td>
-          <td class="py-3 px-4 font-medium text-slate-800">${item.meaning}</td>
-          <td class="py-3 px-4 text-center">
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold ${item.learned ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500'}">
-              ${item.learned ? 'Đã thuộc' : 'Chưa'}
-            </span>
-          </td>
-        </tr>
-      `).join('');
-    }
-
-    function filterVocabTable() {
-      const q = document.getElementById('vocab-search').value;
-      renderVocabularyTable(q);
-    }
-
-    function selectCardById(id) {
-      const list = getFilteredVocab();
-      const foundIdx = list.findIndex(item => item.id === id);
-      if (foundIdx !== -1) {
-        currentCardIndex = foundIdx;
-        renderCurrentCard();
-        window.scrollTo({ top: 120, behavior: 'smooth' });
-      }
-    }
-
-    /* ----------------------------------------------------
-       6. THÊM TỪ VỰNG MỚI
-       ---------------------------------------------------- */
-    function openAddWordModal() {
-      document.getElementById('add-word-modal').classList.remove('hidden');
-    }
-
-    function closeAddWordModal() {
-      document.getElementById('add-word-modal').classList.add('hidden');
-      document.getElementById('add-word-form').reset();
-    }
-
-    function handleSaveWord(e) {
-      e.preventDefault();
-      const word = document.getElementById('new-word').value.trim();
-      const furigana = document.getElementById('new-phonetic').value.trim();
-      const sinoViet = document.getElementById('new-hanviet').value.trim();
-      const meaning = document.getElementById('new-meaning').value.trim();
-      const example = document.getElementById('new-example').value.trim();
-      const exampleVi = document.getElementById('new-example-vi').value.trim();
-      const category = document.getElementById('new-category').value;
-
-      if (!word || !meaning) return;
-
-      const newEntry = {
-        id: Date.now(),
-        word,
-        furigana,
-        pos: "Từ vựng",
-        sinoViet: sinoViet || "-",
-        meaning,
-        example,
-        exampleVi,
-        category,
-        learned: false
-      };
-
-      vocabulary.unshift(newEntry);
-      saveVocabularyLocal();
-      renderCategoryChips();
-      renderVocabularyTable();
-      renderCurrentCard();
-      closeAddWordModal();
-      showToast(`Đã thêm: "${word}"`, "fa-circle-check");
-    }
-
-    /* ----------------------------------------------------
-       7. BẢNG NGỮ PHÁP & TRẮC NGHIỆM
-       ---------------------------------------------------- */
-    function renderGrammarSidebar() {
-      const container = document.getElementById('grammar-list');
-      container.innerHTML = GRAMMAR_TOPICS.map(topic => {
-        const isActive = topic.id === currentGrammarTopicId;
-        const activeClasses = "bg-rose-50 border-rose-500 text-rose-900 shadow-sm";
-        const inactiveClasses = "bg-white border-slate-200 text-slate-700 hover:bg-slate-50";
-
-        return `
-          <button onclick="renderGrammarDetail('${topic.id}')" class="w-full text-left p-4 rounded-2xl border transition-all flex items-start gap-3.5 ${isActive ? activeClasses : inactiveClasses}">
-            <div class="w-10 h-10 rounded-xl ${isActive ? 'bg-rose-600 text-white' : 'bg-slate-100 text-slate-600'} flex items-center justify-center shrink-0 text-sm">
-              <i class="fa-solid ${topic.icon}"></i>
-            </div>
-            <div class="space-y-0.5">
-              <div class="text-xs font-bold ${isActive ? 'text-rose-600' : 'text-slate-500'}">${topic.level}</div>
-              <div class="text-sm font-extrabold text-slate-900 leading-snug">${topic.title}</div>
-            </div>
-          </button>
-        `;
-      }).join('');
-    }
-
-    function renderGrammarDetail(topicId) {
-      currentGrammarTopicId = topicId;
-      renderGrammarSidebar();
-
-      const topic = GRAMMAR_TOPICS.find(t => t.id === topicId) || GRAMMAR_TOPICS[0];
-      const container = document.getElementById('grammar-detail-container');
-
-      container.innerHTML = `
-        <div class="border-b border-slate-100 pb-5">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="px-3 py-1 bg-rose-50 text-rose-700 text-xs font-extrabold rounded-lg uppercase tracking-wide">${topic.level}</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-jp">${topic.title}</h2>
-          <p class="text-slate-500 text-sm mt-1 leading-relaxed">${topic.description}</p>
-        </div>
-
-        <div class="prose prose-slate max-w-none pt-2">
-          ${topic.content}
-        </div>
-
-        <div class="pt-6 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div class="text-xs font-semibold text-slate-500">
-            <i class="fa-solid fa-circle-check text-emerald-500 mr-1"></i> Đã hoàn thành lý thuyết bài học
-          </div>
-          <button onclick="switchTab('quiz')" class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-md shadow-rose-500/20 transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-pen-nib"></i>
-            <span>Luyện trắc nghiệm JLPT ngay</span>
-          </button>
-        </div>
-      `;
-    }
-
-    function loadQuizQuestion() {
-      if (quizCurrentIdx >= QUIZ_QUESTIONS.length) {
-        showQuizResults();
-        return;
-      }
-
-      quizAnswered = false;
-      const q = QUIZ_QUESTIONS[quizCurrentIdx];
-
-      document.getElementById('quiz-progress-text').textContent = `${quizCurrentIdx + 1}/${QUIZ_QUESTIONS.length}`;
-      document.getElementById('quiz-question-index').textContent = `Câu hỏi ${quizCurrentIdx + 1} / ${QUIZ_QUESTIONS.length}`;
-      document.getElementById('quiz-correct-count').textContent = quizScoreCorrect;
-      document.getElementById('quiz-wrong-count').textContent = quizScoreWrong;
-      document.getElementById('quiz-category-badge').textContent = q.badge;
-      document.getElementById('quiz-question').textContent = q.question;
-      document.getElementById('quiz-explanation').classList.add('hidden');
-      document.getElementById('btn-next-quiz').disabled = true;
-
-      const optionsContainer = document.getElementById('quiz-options');
-      optionsContainer.innerHTML = q.options.map((opt, i) => `
-        <button onclick="handleOptionSelect(${i})" class="quiz-option-btn w-full text-left p-4 rounded-2xl border border-slate-200 hover:border-rose-400 bg-white hover:bg-slate-50 transition-all font-semibold text-sm text-slate-800 flex items-center justify-between group">
-          <div class="flex items-center gap-3">
-            <span class="w-7 h-7 rounded-lg bg-slate-100 group-hover:bg-rose-100 group-hover:text-rose-700 font-bold text-xs flex items-center justify-center text-slate-600 transition">
-              ${String.fromCharCode(65 + i)}
-            </span>
-            <span class="font-jp text-base">${opt}</span>
-          </div>
-          <i class="option-icon fa-regular fa-circle text-slate-300"></i>
-        </button>
-      `).join('');
-    }
-
-    function handleOptionSelect(chosenIdx) {
-      if (quizAnswered) return;
-      quizAnswered = true;
-
-      const q = QUIZ_QUESTIONS[quizCurrentIdx];
-      const buttons = document.querySelectorAll('.quiz-option-btn');
-      const isCorrect = chosenIdx === q.correct;
-
-      if (isCorrect) {
-        quizScoreCorrect++;
-        confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
-        recordStreakActivity();
-      } else {
-        quizScoreWrong++;
-      }
-
-      buttons.forEach((btn, idx) => {
-        btn.disabled = true;
-        const icon = btn.querySelector('.option-icon');
-
-        if (idx === q.correct) {
-          btn.classList.remove('bg-white', 'border-slate-200', 'hover:border-rose-400');
-          btn.classList.add('bg-emerald-50', 'border-emerald-500', 'text-emerald-900', 'font-bold');
-          icon.className = "fa-solid fa-circle-check text-emerald-600 text-lg";
-        } else if (idx === chosenIdx && !isCorrect) {
-          btn.classList.remove('bg-white', 'border-slate-200');
-          btn.classList.add('bg-rose-50', 'border-rose-400', 'text-rose-900');
-          icon.className = "fa-solid fa-circle-xmark text-rose-500 text-lg";
-        }
-      });
-
-      const expBox = document.getElementById('quiz-explanation');
-      const expTitle = document.getElementById('quiz-feedback-title');
-      const expDesc = document.getElementById('quiz-feedback-desc');
-
-      expBox.classList.remove('hidden');
-      if (isCorrect) {
-        expTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Chính xác! (正解)`;
-        expTitle.className = "font-bold text-emerald-800 flex items-center gap-1.5";
-      } else {
-        expTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> Chưa chính xác rồi!`;
-        expTitle.className = "font-bold text-rose-800 flex items-center gap-1.5";
-      }
-      expDesc.textContent = q.explanation;
-
-      document.getElementById('btn-next-quiz').disabled = false;
-      document.getElementById('quiz-correct-count').textContent = quizScoreCorrect;
-      document.getElementById('quiz-wrong-count').textContent = quizScoreWrong;
-    }
-
-    function nextQuizQuestion() {
-      quizCurrentIdx++;
-      loadQuizQuestion();
-    }
-
-    function showQuizResults() {
-      document.getElementById('quiz-box').classList.add('hidden');
-      const modal = document.getElementById('quiz-result-modal');
-      modal.classList.remove('hidden');
-
-      const total = QUIZ_QUESTIONS.length;
-      document.getElementById('quiz-final-score').textContent = `Bạn đã hoàn thành: ${quizScoreCorrect} / ${total} câu đúng.`;
-      confetti({ particleCount: 100, spread: 90, origin: { y: 0.5 } });
-    }
-
-    function restartQuiz() {
-      quizCurrentIdx = 0;
-      quizScoreCorrect = 0;
-      quizScoreWrong = 0;
-      quizAnswered = false;
-      document.getElementById('quiz-result-modal').classList.add('hidden');
-      document.getElementById('quiz-box').classList.remove('hidden');
-      loadQuizQuestion();
-    }
-
-    function resetQuiz() {
-      restartQuiz();
-      showToast("Đã thiết lập lại bài thi.");
-    }
-
-    /* ----------------------------------------------------
-       8. LƯU TRỮ VÀ KHỞI TẠO HỆ THỐNG
-       ---------------------------------------------------- */
-    function loadVocabularyLocal() {
-      const stored = localStorage.getItem('nihongo_vocab_data');
-      if (stored) {
-        try {
-          vocabulary = JSON.parse(stored);
-        } catch (e) {
-          vocabulary = [...FULL_JAPANESE_DATABASE];
-        }
-      } else {
-        vocabulary = [...FULL_JAPANESE_DATABASE];
-      }
-
-      const streakData = localStorage.getItem('nihongo_streak');
-      if (streakData) {
-        try { userStreak = JSON.parse(streakData); } catch (e) {}
-      }
-      updateStreakDisplay();
-    }
-
-    function saveVocabularyLocal() {
-      localStorage.setItem('nihongo_vocab_data', JSON.stringify(vocabulary));
-    }
-
-    let toastTimeout;
-    function showToast(msg, iconClass = "fa-circle-check") {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toast-msg');
-      const toastIcon = document.getElementById('toast-icon');
-
-      toastMsg.textContent = msg;
-      toastIcon.className = `fa-solid ${iconClass} text-emerald-400 text-base`;
-      toast.classList.remove('translate-y-20', 'opacity-0');
-      clearTimeout(toastTimeout);
-      toastTimeout = setTimeout(() => {
-        toast.classList.add('translate-y-20', 'opacity-0');
-      }, 2500);
-    }
-
-    // Khởi động
-    window.addEventListener('DOMContentLoaded', () => {
-      loadVocabularyLocal();
-      renderCategoryChips();
-      renderVocabularyTable();
-      renderCurrentCard();
-      renderGrammarSidebar();
-      renderGrammarDetail(currentGrammarTopicId);
-      loadQuizQuestion();
-
-      // Kích hoạt trước giọng đọc tiếng Nhật trong trình duyệt
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.getVoices();
-        window.speechSynthesis.onvoiceschanged = () => {
-          window.speechSynthesis.getVoices();
-        };
-      }
-
-      window.addEventListener('keydown', (e) => {
-        if (['INPUT', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
-        if (e.code === 'Space') {
-          e.preventDefault();
-          flipCard();
-        } else if (e.code === 'ArrowRight') {
-          nextCard();
-        } else if (e.code === 'ArrowLeft') {
-          prevCard();
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+                  <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-1">Ví dụ ngữ cảnh</div>
+                  <p id="card-example" class="font-jp text-slate-200
