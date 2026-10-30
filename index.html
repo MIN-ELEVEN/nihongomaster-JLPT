@@ -630,10 +630,10 @@
   <footer class="bg-white border-t border-slate-200 py-4 sm:py-6 text-xs text-slate-500 mt-auto w-full">
     <div class="w-full px-3 sm:px-6 lg:px-10 flex flex-col sm:flex-row items-center justify-between gap-3">
       <div class="flex items-center gap-2">
-        <span class="font-extrabold text-slate-800">NihongoMaster</span> — 継続は力なり (Kiên trì ắt thành công!)
+        <span class="font-extrabold text-slate-800">NihongoMaster</span> — 継続は力なり (KIÊN TRÌ ẮT THÀNH CÔNG!)
       </div>
       <div class="text-slate-400 font-bold tracking-wider text-xs uppercase">
-        JLPT N4-N3 EDITION
+        MIN ELEVEN
       </div>
     </div>
   </footer>
@@ -3016,28 +3016,38 @@
        6. BỘ PHÁT ÂM TIẾNG NHẬT CHUẨN (HỖ TRỢ BRAVE & CHROME)
        ---------------------------------------------------- */
     let currentAudioPlayer = null;
+    let activeSpeakerElement = null;
 
     function sanitizeForJapaneseSpeech(rawText) {
       if (!rawText) return "";
       return String(rawText).replace(/[·・~〜\s]/g, '').trim();
     }
 
-    function animateSpeakerIcons(isSpeaking) {
-      const icons = document.querySelectorAll('.fa-volume-high');
-      icons.forEach(icon => {
-        if (isSpeaking) {
+    function animateSpeakerIcons(isSpeaking, targetElement = null) {
+      // Tắt trạng thái đang phát ở loa trước đó (nếu có)
+      if (activeSpeakerElement) {
+        activeSpeakerElement.classList.remove('text-rose-500', 'animate-pulse');
+        activeSpeakerElement = null;
+      }
+
+      if (isSpeaking && targetElement) {
+        // Tìm icon bên trong nút hoặc dùng chính icon được click
+        const icon = targetElement.classList.contains('fa-volume-high') 
+          ? targetElement 
+          : targetElement.querySelector('.fa-volume-high');
+        
+        if (icon) {
           icon.classList.add('text-rose-500', 'animate-pulse');
-        } else {
-          icon.classList.remove('text-rose-500', 'animate-pulse');
+          activeSpeakerElement = icon;
         }
-      });
+      }
     }
 
-    function playJapaneseSpeech(textToSpeak) {
+    function playJapaneseSpeech(textToSpeak, triggerElement = null) {
       const cleanText = sanitizeForJapaneseSpeech(textToSpeak);
       if (!cleanText) return;
 
-      animateSpeakerIcons(true);
+      animateSpeakerIcons(true, triggerElement);
 
       // Dừng âm thanh trước đó nếu đang phát
       if (currentAudioPlayer) {
@@ -3174,23 +3184,27 @@
     }
 
     function handleSpeakCurrent(event) {
+      let targetEl = null;
       if (event) {
         event.preventDefault();
         event.stopPropagation();
+        targetEl = event.currentTarget || event.target;
       }
       const list = getFilteredVocab();
       if (list.length === 0) return;
       // Ưu tiên đọc furigana/kana để phát âm chuẩn xác nhất
       const targetText = list[currentCardIndex].furigana || list[currentCardIndex].word;
-      playJapaneseSpeech(targetText);
+      playJapaneseSpeech(targetText, targetEl);
     }
 
     function quickSpeak(wordText, event) {
+      let targetEl = null;
       if (event) {
         event.preventDefault();
         event.stopPropagation();
+        targetEl = event.currentTarget || event.target;
       }
-      playJapaneseSpeech(wordText);
+      playJapaneseSpeech(wordText, targetEl);
     }
 
     /* ----------------------------------------------------
@@ -3453,7 +3467,7 @@
         <tr class="hover:bg-slate-50 transition cursor-pointer" onclick="selectCardById(${item.id})">
           <td class="py-3 px-4 font-bold text-slate-900 flex items-center gap-2">
             <span>${item.word}</span>
-            <button type="button" onclick="quickSpeak('${item.furigana || item.word}', event)" class="p-1 text-slate-400 hover:text-rose-600 active:scale-95 transition" title="Nghe phát âm">
+            <button type="button" onclick="quickSpeak('${item.furigana || item.word}', event)" class="p-1 text-slate-400 hover:text-rose-600 active:scale-95 transition speaker-btn" title="Nghe phát âm">
               <i class="fa-solid fa-volume-high text-xs"></i>
             </button>
           </td>
