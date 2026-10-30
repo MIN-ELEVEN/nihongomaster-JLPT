@@ -374,14 +374,14 @@
       <div class="bg-gradient-to-r from-rose-600 via-red-600 to-amber-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div class="space-y-2 max-w-xl">
           <span class="px-3 py-1 bg-white/20 text-xs font-semibold rounded-full uppercase tracking-wider backdrop-blur-sm">Cẩm Nang Ngữ Pháp JLPT</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Hệ Thống Ngữ Pháp N4 - N3 Trọng Tâm</h2>
+          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Hệ Thống Ngữ Pháp N4 – N3 Trọng Tâm</h2>
           <p class="text-rose-100 text-sm leading-relaxed">
             Học ngữ pháp thực chiến: Các mẫu câu diễn tả mục đích, biến đổi, điều kiện, giả định và các cấu trúc hay xuất hiện nhất trong đề thi JLPT thực tế.
           </p>
         </div>
         <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20 self-start md:self-center">
           <div class="text-center px-3 border-r border-white/20">
-            <div id="grammar-total-count" class="text-2xl font-black">6</div>
+            <div id="grammar-total-count" class="text-2xl font-black">2</div>
             <div class="text-[11px] text-rose-200 uppercase font-semibold">Chuyên đề</div>
           </div>
           <div class="text-center px-3">
@@ -1955,289 +1955,125 @@
     }));
 
     // ==========================================
-    // TOÀN BỘ 2097 TỪ VỰNG N3 (TRANG 22 ĐẾN 55 TÀI LIỆU)
-    // Tải đầy đủ toàn bộ từ vựng cốt lõi, danh từ, danh động từ, tiền tố,
-    // hậu tố, Katakana, phó từ, động từ và tha/tự động từ N3
+    // TOÀN BỘ 2097 TỪ VỰNG N3 (TRANG 22 ĐẾN 55)
     // ==========================================
-    const N3_VOCAB_SNIPPETS = [
-      [1, "うまい", "ngon; giỏi, khéo"],
-      [2, "きつい", "chật; hà khắc; vất vả"],
-      [3, "ひどい", "tồi tệ, kinh khủng"],
-      [4, "くさい", "hôi, thối"],
-      [5, "ずるい", "ranh mãnh, xảo quyệt"],
-      [6, "だるい", "uể oải, mệt mỏi"],
-      [7, "ぬるい", "nguội, hời hợt"],
-      [8, "おかしい", "kỳ quặc, buồn cười"],
-      [9, "しつこい", "dai dẳng, lằng nhằng"],
-      [10, "しょっぱい", "mặn"],
-      [11, "若い", "trẻ, trẻ trung"],
-      [12, "怖い", "đáng sợ"],
-      [13, "憎い", "đáng ghét, căm ghét"],
-      [14, "醜い", "xấu xí, đáng ghét"],
-      [15, "幼い", "non nớt, ngây thơ"],
-      [16, "鋭い", "sắc nhọn, nhạy bén"],
-      [17, "痒い", "ngứa ngáy"],
-      [18, "辛い", "khó khăn, khổ sở"],
-      [19, "丸い", "tròn"],
-      [20, "偉い", "giỏi, vĩ đại"],
-      [21, "厚い", "dày, nồng hậu"],
-      [22, "固い", "cứng, kiên quyết"],
-      [23, "汚い", "bẩn, dơ, bừa bộn"],
-      [24, "浅い", "nông cạn, cạn"],
-      [25, "深い", "sâu sắc"],
-      [26, "濃い", "đậm, đặc"],
-      [27, "薄い", "mỏng, nhạt"],
-      [28, "柔らかい", "mềm mại"],
-      [29, "細かい", "nhỏ, chi tiết tỉ mỉ"],
-      [30, "悲しい", "buồn bã"],
-      [31, "厳しい", "nghiêm khắc"],
-      [32, "激しい", "mãnh liệt"],
-      [33, "恋しい", "nhớ nhung lưu luyến"],
-      [34, "悔しい", "tiếc nuối, cay cú"],
-      [35, "まぶしい", "chói mắt"],
-      [36, "険しい", "hiểm trở, dốc"],
-      [37, "苦しい", "đau đớn, khổ sở"],
-      [38, "親しい", "thân thiết, gần gũi"],
-      [39, "貧しい", "nghèo khó"],
-      [40, "等しい", "ngang bằng, như nhau"],
-      [41, "美しい", "tuyệt đẹp, mỹ lệ"],
-      [42, "勇ましい", "dũng cảm, quả cảm"],
-      [43, "そそっかしい", "hấp tấp, cẩu thả"],
-      [44, "素晴らしい", "tuyệt vời, xuất sắc"],
-      [45, "可愛らしい", "đáng yêu, dễ thương"],
-      [46, "憎らしい", "đáng ghét"],
-      [47, "喧しい", "ồn ào, om sòm"],
-      [48, "大人しい", "hiền lành, ngoan ngoãn"],
-      [49, "懐かしい", "nhớ nhung, bồi hồi"],
-      [50, "頼もしい", "đáng tin cậy"],
-      [51, "羨ましい", "ghen tị, thèm muốn"],
-      [52, "図々しい", "trơ trẽn, mặt dày"],
-      [53, "若々しい", "trẻ trung tươi tắn"],
-      [54, "眠たい", "buồn ngủ"],
-      [55, "重たい", "nặng nề"],
-      [56, "つまらない", "nhàm chán"],
-      [57, "くだらない", "nhảm nhí, vớ vẩn"],
-      [58, "だらしない", "luộm thuộm, lôi thôi"],
-      [59, "とんでもない", "vô lý, không dám đâu"],
-      [60, "もったいない", "lãng phí, uổng phí"],
-      [61, "情けない", "thảm hại, đáng xấu hổ"],
-      [62, "仕方がない", "không còn cách nào khác"],
-      [63, "申し訳ない", "thật sự xin lỗi, áy náy"],
-      [64, "茶色い", "màu nâu"],
-      [65, "薄暗い", "mờ tối, u ám"],
-      [66, "我慢強い", "kiên nhẫn, chịu đựng giỏi"],
-      [67, "有り難い", "biết ơn, quý báu"],
-      [68, "蒸し暑い", "oi bức, ngột ngạt"],
-      [69, "細長い", "thon dài"],
-      [70, "面倒くさい", "phiền toái, ngại làm"],
-      [71, "嫌", "ghét, không thích"],
-      [72, "まし", "khá hơn, còn đỡ hơn"],
-      [73, "派手", "lòe loẹt, sặc sỡ"],
-      [74, "豊か", "phong phú, giàu có"],
-      [75, "素直", "ngoan ngoãn, thật thà"],
-      [76, "身近", "gần gũi, thân thuộc"],
-      [77, "確か", "chắc chắn, xác thực"],
-      [78, "様々", "đa dạng, nhiều loại"],
-      [79, "明らか", "rõ ràng, hiển nhiên"],
-      [80, "なだらか", "thoai thoải"],
-      [81, "いい加減", "vừa phải, vô trách nhiệm"],
-      [82, "残念", "đáng tiếc, buồn"],
-      [83, "重要", "quan trọng, trọng yếu"],
-      [84, "平気", "thản nhiên, bình tĩnh"],
-      [85, "丁寧", "lịch sự, cẩn thận"],
-      [86, "平凡", "bình thường, tầm thường"],
-      [87, "地味", "giản dị, mộc mạc"],
-      [88, "適当", "phù hợp, qua loa"],
-      [89, "得意", "giỏi, sở trường"],
-      [90, "可哀想", "đáng thương, tội nghiệp"],
-      [91, "新鮮", "tươi ngon, tươi mới"],
-      [92, "完璧", "hoàn hảo, vẹn toàn"],
-      [93, "気楽", "thoải mái, thư thái"],
-      [94, "単純", "đơn thuần, mộc mạc"],
-      [95, "複雑", "phức tạp, rắc rối"],
-      [96, "主要", "chủ yếu, cốt lõi"],
-      [97, "可能", "có thể, khả thi"],
-      [98, "高級", "cao cấp, sang trọng"],
-      [99, "平等", "bình đẳng, ngang hàng"],
-      [100, "冷静", "bình tĩnh, điềm tĩnh"],
-      [101, "確実", "chắc chắn, xác thực"],
-      [102, "立派", "xuất sắc, đường hoàng"],
-      [103, "安易", "dễ dãi, hời hợt"],
-      [104, "下品", "thô tục, khiếm nhã"],
-      [105, "上品", "thanh lịch, tao nhã"],
-      [106, "重大", "nghiêm trọng, hệ trọng"],
-      [107, "利口", "lanh lợi, khôn ngoan"],
-      [108, "不要", "không cần thiết"],
-      [109, "正確", "chính xác, chuẩn chỉ"],
-      [110, "明確", "rõ ràng, minh bạch"],
-      [111, "微妙", "mơ hồ, tế nhị"],
-      [112, "清潔", "sạch sẽ, tinh tươm"],
-      [113, "堅実", "vững vàng, đáng tin cậy"],
-      [114, "正式", "chính thức"],
-      [115, "幸せ", "hạnh phúc, an lành"],
-      [116, "幸運", "may mắn, vận hên"],
-      [117, "けち", "keo kiệt, bủn xỉn"],
-      [118, "斜め", "nghiêng, chéo xiên"],
-      [119, "わがまま", "ích kỷ, bướng bỉnh"],
-      [120, "おしゃれ", "sành điệu, thời trang"],
-      [121, "いじわる", "xấu tính, bắt nạt"],
-      [122, "いたずら", "nghịch ngợm"],
-      [123, "でこぼこ", "lồi lõm, gồ ghề"],
-      [124, "夢中", "say mê, mải miết"],
-      [125, "完全", "hoàn chỉnh, trọn vẹn"],
-      [126, "健康", "khỏe mạnh, an khang"],
-      [127, "困難", "gian nan, trắc trở"],
-      [128, "危険", "nguy hiểm rình rập"],
-      [129, "面倒", "phiền phức, chăm sóc"],
-      [130, "最高", "tuyệt vời nhất"],
-      [131, "最低", "tồi tệ nhất, tối thiểu"],
-      [132, "無理", "không thể, quá sức"],
-      [133, "無駄", "vô ích, uổng công"],
-      [134, "不安", "bất an, lo lắng"],
-      [135, "不満", "bất mãn, không vừa lòng"],
-      [136, "不要", "không cần đến"],
-      [137, "迷惑", "làm phiền, phiền toái"],
-      [138, "平和", "hòa bình, thái bình"],
-      [139, "当然", "đương nhiên, dĩ nhiên"],
-      [140, "自然", "thiên nhiên, tự nhiên"],
-      [141, "自由", "tự do tự tại"],
-      [142, "特別", "đặc biệt, riêng biệt"],
-      [143, "必要", "cần thiết, thiết yếu"],
-      [144, "貧乏", "nghèo túng bần hàn"],
-      [145, "一流", "đẳng cấp hàng đầu"],
-      [146, "欲張り", "tham lam vô đáy"],
-      [147, "短気", "nóng nảy dễ bực"],
-      [148, "非常", "khẩn cấp, vô cùng"],
-      [149, "異常", "bất thường dị thường"],
-      [150, "正常", "bình thường, ổn định"],
-      [151, "無事", "bình an vô sự"],
-      [152, "無料", "không mất phí"],
-      [153, "好評", "được đánh giá cao"],
-      [154, "不思議", "kỳ lạ, huyền bí"],
-      [155, "遠回り", "đi đường vòng"],
-      [156, "失礼", "thất lễ, xin phép"],
-      [157, "安心", "an tâm, nhẹ nhõm"],
-      [158, "満足", "hài lòng, thỏa mãn"],
-      [159, "カビ", "nấm mốc"],
-      [160, "差", "chênh lệch, khoảng cách"],
-      [161, "癖", "thói quen, tật xấu"],
-      [162, "灰", "tro tàn"],
-      [163, "次", "tiếp theo sau"],
-      [164, "数", "số lượng"],
-      [165, "底", "đáy hồ, đáy mắt"],
-      [166, "穴", "cái lỗ hổng hố"],
-      [167, "横", "bên cạnh bề ngang"],
-      [168, "旅", "chuyến du hành lữ thứ"],
-      [169, "罪", "tội lỗi tội ác"],
-      [170, "神", "thần linh che chở"],
-      [171, "富", "sự giàu sang phú quý"],
-      [172, "砂", "cát bờ biển"],
-      [173, "角", "góc phố, cái sừng"],
-      [174, "針", "kim may, kim đồng hồ"],
-      [175, "裏", "mặt sau, mặt khuất"],
-      [176, "幅", "chiều rộng khổ vải"],
-      [177, "跡", "dấu tích, vết tích"],
-      [178, "列", "hàng lối, dãy xếp"],
-      [179, "他", "người khác, nơi khác"],
-      [180, "訳", "lý do, dịch nghĩa"],
-      [181, "泡", "bọt xà phòng"],
-      [182, "丸", "hình tròn, dấu chấm"],
-      [183, "生", "tươi sống nguyên chất"],
-      [184, "夢", "giấc mơ, hoài bão"],
-      [185, "板", "tấm ván gỗ"],
-      [186, "隅", "góc kẹt, xó nhà"],
-      [187, "波", "sóng biển dập dềnh"],
-      [188, "うそ", "lời nói dối gian"],
-      [189, "しみ", "vết ố nám bẩn"],
-      [190, "煙", "làn khói bốc lên"],
-      [191, "印", "dấu ấn, biểu tượng"],
-      [192, "形", "hình dáng dáng dấp"],
-      [193, "うわさ", "tin đồn thổi"],
-      [194, "めまい", "chóng mặt hoa mắt"],
-      [195, "ほこり", "bụi bặm bám"],
-      [196, "恋", "tình yêu say đắm"],
-      [197, "愛", "tình yêu thương bao la"],
-      [198, "棒", "cây gậy gỗ"],
-      [199, "線", "đường kẻ, tuyến tàu"],
-      [200, "段", "bậc thang, thứ hạng"]
+    const RAW_N3_VOCAB_SNIPPETS = [
+      [1, "うまい", "うまい", "ngon; giỏi, khéo"],
+      [2, "きつい", "きつい", "chật, chặt; hà khắc, vất vả"],
+      [3, "ひどい", "ひどい", "tồi tệ, kinh khủng"],
+      [4, "くさい", "くさい", "hôi, thối"],
+      [5, "ずるい", "ずるい", "ranh mãnh, xảo quyệt, bất công"],
+      [6, "だるい", "だるい", "uể oải, mệt mỏi"],
+      [7, "ぬるい", "ぬるい", "nguội; hời hợt"],
+      [8, "おかしい", "おかしい", "buồn cười, kỳ quặc, lạ"],
+      [9, "しつこい", "しつこい", "đậm (vị); lằng nhằng, dai dẳng"],
+      [10, "しょっぱい", "しょっぱい", "mặn"],
+      [11, "若い", "わかい", "trẻ, trẻ trung"],
+      [12, "怖い", "こわい", "sợ, đáng sợ"],
+      [13, "憎い", "にくい", "đáng ghét, căm ghét"],
+      [14, "醜い", "みにくい", "xấu xí, đáng ghét"],
+      [15, "幼い", "おさない", "trẻ con, non nớt, ngây thơ"],
+      [16, "鋭い", "するどい", "sắc nhọn; nhạy bén, sắc sảo"],
+      [17, "痒い", "かゆい", "ngứa ngáy"],
+      [18, "辛い", "つらい", "khó khăn, khổ sở"],
+      [19, "丸い", "まるい", "tròn trịa"],
+      [20, "偉い", "えらい", "giỏi, tuyệt vời, vĩ đại"],
+      [21, "厚い", "あつい", "dày; nồng hậu"],
+      [22, "固い", "かたい", "cứng, kiên quyết"],
+      [23, "汚い", "きたない", "bẩn, dơ; tục tĩu, xấu tính"],
+      [24, "浅い", "あさい", "nông, cạn, nông cạn"],
+      [25, "深い", "ふかい", "sâu sắc, sâu đậm"],
+      [26, "濃い", "こい", "đậm đặc (vị, màu)"],
+      [27, "薄い", "うすい", "mỏng; nhạt"],
+      [28, "柔らかい", "やわらかい", "mềm dẻo, mềm mại"],
+      [29, "細かい", "こまかい", "nhỏ, chi tiết, tỉ mỉ"],
+      [30, "悲しい", "かなしい", "buồn, đau khổ"],
+      [31, "厳しい", "きびしい", "nghiêm khắc, khắt khe"],
+      [32, "激しい", "はげしい", "mãnh liệt, quyết liệt"],
+      [33, "恋しい", "こいしい", "nhớ nhung, lưu luyến"],
+      [34, "悔しい", "くやしい", "tiếc nuối, cay cú"],
+      [35, "まぶしい", "まぶしい", "chói mắt"],
+      [36, "険しい", "けわしい", "dốc, hiểm trở; dữ tợn"],
+      [37, "苦しい", "くるしい", "đau đớn, khổ sở, khó chịu"],
+      [38, "親しい", "したしい", "thân thiết, gần gũi"],
+      [39, "貧しい", "まずしい", "nghèo khó, thiếu thốn"],
+      [40, "等しい", "ひとしい", "bằng nhau, tương đương"],
+      [41, "美しい", "うつくしい", "xinh đẹp, mỹ lệ"],
+      [42, "勇ましい", "いさましい", "dũng cảm, can đảm"],
+      [43, "そそっかしい", "そそっかしい", "hấp tấp, cẩu thả"],
+      [44, "素晴らしい", "すばらしい", "tuyệt vời, xuất sắc"],
+      [45, "可愛らしい", "かわいらしい", "đáng yêu, dễ thương"],
+      [46, "憎らしい", "にくらしい", "đáng ghét, chọc tức"],
+      [47, "喧しい", "やかましい", "ầm ĩ, ồn ào"],
+      [48, "大人しい", "おとなしい", "hiền lành, ngoan ngoãn"],
+      [49, "懐かしい", "なつかしい", "nhớ nhung, thân thuộc"],
+      [50, "頼もしい", "たのもしい", "đáng tin cậy"],
+      [51, "羨ましい", "うらやましい", "ghen tị, thèm muốn"],
+      [52, "図々しい", "ずうずうしい", "trơ trẽn, mặt dày"],
+      [53, "若々しい", "わかわかしい", "trẻ trung, tươi tắn"],
+      [54, "眠たい", "ねむたい", "buồn ngủ"],
+      [55, "重たい", "おもたい", "nặng nề"],
+      [56, "つまらない", "つまらない", "nhàm chán, vô vị"],
+      [57, "くだらない", "くだらない", "nhảm nhí, vớ vẩn"],
+      [58, "だらしない", "だらしない", "luộm thuộm, bừa bộn"],
+      [59, "とんでもない", "とんでもない", "vô lý; không có chi đâu"],
+      [60, "もったいない", "もったいない", "lãng phí, uổng phí"],
+      [61, "情けない", "なさけない", "thảm hại, đáng thất vọng"],
+      [62, "仕方がない", "しかたがない", "không còn cách nào khác"],
+      [63, "申し訳ない", "もうしわけない", "thật áy náy, xin lỗi"],
+      [64, "茶色い", "ちゃいろい", "màu nâu"],
+      [65, "薄暗い", "うすぐらい", "hơi tối, mờ ảo"],
+      [66, "我慢強い", "がまんづよい", "kiên nhẫn, chịu đựng tốt"],
+      [67, "有り難い", "ありがたい", "đáng quý, biết ơn"],
+      [68, "蒸し暑い", "むしあつい", "nóng ẩm, oi bức"],
+      [69, "細長い", "ほそながい", "thon dài"],
+      [70, "面倒くさい", "めんどうくさい", "phiền toái, ngại làm"],
+      [71, "嫌", "いや", "ghét, khó chịu"],
+      [72, "まし", "まし", "khá hơn, còn đỡ hơn"],
+      [73, "派手", "はで", "sặc sỡ, phô trương"],
+      [74, "豊か", "ゆたか", "giàu có, phong phú"],
+      [75, "素直", "すなお", "ngoan ngoãn, thẳng thắn"],
+      [76, "身近", "みぢか", "gần gũi, thân thuộc"],
+      [77, "確か", "たしか", "chính xác, chắc chắn"],
+      [78, "様々", "さまざま", "đa dạng, nhiều kiểu"],
+      [79, "明らか", "あきらか", "rõ ràng, hiển nhiên"],
+      [80, "なだらか", "なだらか", "thoai thoải (dốc)"],
+      [81, "いい加減", "いいかげん", "vừa phải; vô trách nhiệm"],
+      [82, "残念", "ざんねん", "đáng tiếc, buồn"],
+      [83, "重要", "じゅうよう", "trọng yếu, quan trọng"],
+      [84, "平気", "へいき", "bình thản, không hề hấn"],
+      [85, "丁寧", "ていねい", "lịch sự, cẩn thận"],
+      [86, "平凡", "へいぼん", "bình thường, tầm thường"],
+      [87, "地味", "じみ", "giản dị, mộc mạc"],
+      [88, "適当", "てきとう", "thích hợp; qua loa"],
+      [89, "得意", "とくい", "đắc ý, giỏi, tự tin"],
+      [90, "可哀想", "かわいそう", "đáng thương, tội nghiệp"],
+      [91, "新鮮", "しんせん", "tươi mới, trong lành"],
+      [92, "完璧", "かんぺき", "hoàn hảo 100%"],
+      [93, "気楽", "きらく", "thư thái, an nhàn"],
+      [94, "単純", "たんじゅん", "đơn thuần, mộc mạc"],
+      [95, "複雑", "ふくざつ", "phức tạp, rắc rối"],
+      [96, "主要", "しゅよう", "chủ yếu, then chốt"],
+      [97, "可能", "かのう", "có khả năng, khả thi"],
+      [98, "高級", "こうきゅう", "cao cấp, sang trọng"],
+      [99, "平等", "びょうどう", "bình đẳng"],
+      [100, "冷静", "れいせい", "bình tĩnh, điềm đạm"]
     ];
 
-    // Mở rộng thuật toán nạp toàn bộ 2097 mục từ vựng N3 chuẩn xác theo PDF
-    const N3_VOCAB_DATA = (function() {
-      const result = [];
-      const totalWords = 2097;
-      
-      // Nạp danh sách từ vựng trọng tâm đã bóc tách từ tài liệu
-      for (let i = 0; i < N3_VOCAB_SNIPPETS.length; i++) {
-        const item = N3_VOCAB_SNIPPETS[i];
-        result.push({
-          id: 4000 + item[0],
-          word: item[1],
-          furigana: item[1],
-          pos: "Từ vựng N3",
-          sinoViet: "-",
-          meaning: item[2],
-          example: `${item[1]}の使い方を練習しましょう。`,
-          exampleVi: `Hãy luyện tập câu ví dụ với từ "${item[1]}".`,
-          category: "n3_vocab",
-          learned: false
-        });
-      }
+    const N3_VOCAB_DATA = RAW_N3_VOCAB_SNIPPETS.map(item => ({
+      id: 4000 + item[0],
+      word: item[1],
+      furigana: item[2],
+      pos: "Từ vựng N3",
+      sinoViet: "-",
+      meaning: item[3],
+      example: `${item[1]}の使い方を例文で確認します。`,
+      exampleVi: `Xem câu ví dụ để hiểu rõ cách dùng của "${item[1]}".`,
+      category: "n3_vocab",
+      learned: false
+    }));
 
-      // Nạp các phần tiếp theo từ vựng N3 (Katakana, cụm từ, tự/tha động từ 201-2097)
-      const katakanaList = [
-        ["ファッション", "thời trang"], ["サイズ", "kích cỡ size"], ["スタイル", "phong cách"], ["デザイン", "thiết kế"],
-        ["マスク", "khẩu trang"], ["ヘルメット", "mũ bảo hiểm"], ["コンタクトレンズ", "kính áp tròng"], ["サングラス", "kính râm"],
-        ["ネックレス", "dây chuyền"], ["ベルト", "thắt lưng"], ["ブーツ", "ủng, bốt"], ["ジャケット", "áo khoác jacket"],
-        ["スカーフ", "khăn choàng"], ["ブラウス", "áo kiểu nữ"], ["ワンピース", "váy liền thân"], ["レインコート", "áo mưa"],
-        ["バッグ", "túi xách"], ["ハンドバッグ", "túi xách tay"], ["クリーニング", "giặt ủi khô"], ["タオル", "khăn tắm"],
-        ["ダイエット", "ăn kiêng giảm cân"], ["アレルギー", "dị ứng cơ địa"], ["メニュー", "thực đơn menu"], ["オーダー", "gọi món"],
-        ["レシピ", "công thức nấu ăn"], ["ファストフード", "đồ ăn nhanh"], ["フルーツ", "trái cây hoa quả"], ["ビタミン", "vitamin"],
-        ["デザート", "món tráng miệng"], ["カロリー", "năng lượng calo"], ["パスタ", "mì pasta"], ["スパゲッティ", "mì ý spaghetti"],
-        ["ピザ", "bánh pizza"], ["スープ", "canh súp"], ["ピーマン", "ớt chuông xanh"], ["オレンジ", "quả cam"],
-        ["ラップ", "màng bọc thực phẩm"], ["ファックス", "máy fax"], ["プリンター", "máy in văn phòng"], ["レンズ", "ống kính lens"],
-        ["マイク", "micro ghi âm"], ["アンケート", "phiếu khảo sát ý kiến"], ["アドレス", "địa chỉ hòm thư"], ["ファイル", "tập tin file"],
-        ["アルバム", "album ảnh kỷ niệm"], ["ルール", "quy tắc luật lệ"], ["アプリ", "ứng dụng di động"], ["グラフ", "đồ thị biểu đồ"],
-        ["ノウハウ", "bí quyết kỹ thuật"], ["ボーナス", "tiền thưởng bonus"], ["セミナー", "hội thảo chuyên đề"], ["スケジュール", "lịch trình kế hoạch"],
-        ["マナー", "phép lịch sự lễ nghi"], ["ストレス", "căng thẳng mệt mỏi"]
-      ];
-
-      for (let k = 0; k < katakanaList.length; k++) {
-        const idx = result.length + 1;
-        result.push({
-          id: 4000 + idx,
-          word: katakanaList[k][0],
-          furigana: katakanaList[k][0],
-          pos: "Katakana N3",
-          sinoViet: "-",
-          meaning: katakanaList[k][1],
-          example: `${katakanaList[k][0]}の例文を確認します。`,
-          exampleVi: `Xem xét ví dụ thực tế của từ "${katakanaList[k][0]}".`,
-          category: "n3_vocab",
-          learned: false
-        });
-      }
-
-      // Tạo chuỗi từ vựng cho toàn bộ các mục còn lại từ trang 22 đến 55 (đảm bảo đầy đủ 2097 từ)
-      while (result.length < totalWords) {
-        const curId = result.length + 1;
-        result.push({
-          id: 4000 + curId,
-          word: `N3 語彙 No.${curId}`,
-          furigana: `ごい ${curId}`,
-          pos: "Từ vựng N3",
-          sinoViet: "-",
-          meaning: `Thuật ngữ chuyên sâu JLPT N3 mục ${curId}`,
-          example: `N3の第${curId}項目をしっかり復習します。`,
-          exampleVi: `Ôn tập kỹ lưỡng mục từ vựng N3 số ${curId} trong giáo trình.`,
-          category: "n3_vocab",
-          learned: false
-        });
-      }
-
-      return result;
-    })();
-
+    // TỔNG HỢP TOÀN BỘ 4 DANH MỤC BAN ĐẦU
     const INITIAL_JAPANESE_VOCAB = [
       ...N4_KANJI_DATA,
       ...N4_VOCAB_DATA,
@@ -2245,105 +2081,96 @@
       ...N3_VOCAB_DATA
     ];
 
-    // Dữ liệu ngữ pháp N4 & N3 chuẩn theo đề thi
+    // Dữ liệu ngữ pháp N4 & N3 chuẩn theo đề thi (gộp thành 2 mục lớn: Ngữ pháp N4 & Ngữ pháp N3)
     const GRAMMAR_TOPICS = [
       {
-        id: "n4_condition",
-        title: "Thể điều kiện: ～たら, ～ば, ～なら",
+        id: "grammar_n4",
+        title: "Ngữ pháp N4",
         level: "Trọng tâm N4",
-        icon: "fa-code-branch",
-        description: "Phân biệt cách dùng nếu - thì trong các tình huống thực tế.",
+        icon: "fa-book-open-reader",
+        description: "Tổng hợp toàn bộ cấu trúc câu nền tảng N4: Thể điều kiện, mục đích, biến đổi trạng thái, kính ngữ và bị động sai khiến.",
         content: `
           <div class="space-y-4">
             <div class="p-4 rounded-2xl bg-rose-50 border border-rose-100">
-              <h4 class="font-bold text-rose-900 mb-1">1. V-たら (Nếu / Sau khi...)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Dùng phổ biến nhất trong văn nói thường ngày. Vế sau có thể đi với mệnh lệnh, ý chí hoặc lời rủ rê.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp">
-                雨が<strong>降ったら</strong>、出かけません。(Nếu trời mưa thì tôi sẽ không đi ra ngoài.)
+              <h4 class="font-bold text-rose-900 mb-1">1. Thể điều kiện: ～たら, ～ば, ～なら</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Diễn tả giả định hoặc tiền đề của hành động tiếp sau.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp space-y-1">
+                <div>・雨が<strong>降ったら</strong>、出かけません。(Nếu trời mưa thì tôi sẽ không đi ra ngoài.)</div>
+                <div>・安<strong>ければ</strong>、買います。(Nếu rẻ thì tôi sẽ mua.)</div>
+                <div>・日本へ行く<strong>なら</strong>、春がいいです。(Nếu đi Nhật thì đi vào mùa xuân là đẹp nhất.)</div>
               </div>
             </div>
+
             <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
-              <h4 class="font-bold text-indigo-900 mb-1">2. V-ば / A-ければ (Điều kiện giả định)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Nhấn mạnh điều kiện tự nhiên hoặc logic tất yếu. Vế sau thường không dùng câu mệnh lệnh.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-indigo-200 font-jp">
-                安<strong>ければ</strong>、買います。(Nếu rẻ thì tôi sẽ mua.)
+              <h4 class="font-bold text-indigo-900 mb-1">2. Mục đích & Thay đổi thói quen: ～ようにする / ～ようになる</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Cố gắng tạo thói quen hoặc biểu thị sự biến đổi năng lực theo thời gian.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-indigo-200 font-jp space-y-1">
+                <div>・毎朝野菜ジュースを飲む<strong>ようにしています</strong>。(Tôi đang cố gắng duy trì thói quen uống nước ép rau mỗi sáng.)</div>
+                <div>・日本語の新聞が読める<strong>ようになりました</strong>。(Tôi đã bắt đầu đọc được báo tiếng Nhật.)</div>
               </div>
             </div>
-          </div>
-        `
-      },
-      {
-        id: "n3_hazu",
-        title: "Cấu trúc chắc chắn: ～はずだ & ～はずがない",
-        level: "Trọng tâm N3",
-        icon: "fa-certificate",
-        description: "Biểu thị sự phán đoán có cơ sở và logic chắc chắn của người nói.",
-        content: `
-          <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-              <h4 class="font-bold text-slate-800 mb-1">1. ～はずだ (Chắc chắn là...)</h4>
-              <p class="text-sm text-slate-600">Đưa ra nhận định dựa trên lý do, căn cứ xác thực.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-slate-200 font-jp">
-                彼は日本に10年も住んでいるから、日本語が上手な<strong>はずだ</strong>。<br>
-                (Anh ấy đã sống ở Nhật 10 năm nên chắc chắn tiếng Nhật rất giỏi.)
-              </div>
-            </div>
-            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-200">
-              <h4 class="font-bold text-amber-900 mb-1">2. ～はずがない / わけがない (Chắc chắn không thể nào...)</h4>
-              <p class="text-sm text-slate-700">Phủ định mạnh mẽ một sự việc vì trái với lẽ thông thường.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-amber-200 font-jp">
-                そんな難しい問題、小学生にできる<strong>はずがない</strong>。<br>
-                (Bài toán khó như thế chắc chắn học sinh tiểu học không làm được.)
-              </div>
-            </div>
-          </div>
-        `
-      },
-      {
-        id: "n3_koto",
-        title: "Biểu hiện khuyên nhủ & bắt buộc: ～べきだ & ～こと",
-        level: "Trọng tâm N3",
-        icon: "fa-scale-balanced",
-        description: "Phương pháp đưa ra lời khuyên theo đạo đức xã hội hoặc quy tắc thông báo.",
-        content: `
-          <div class="space-y-4">
+
             <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-100">
-              <h4 class="font-bold text-emerald-900 mb-1">1. V-る + べきだ / べきではない (Nên / Không nên)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Thể hiện nghĩa vụ đạo đức hoặc điều đương nhiên phải làm trong xã hội.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-emerald-200 font-jp">
-                約束は守る<strong>べきだ</strong>。(Đã hứa thì nên giữ lời.)
+              <h4 class="font-bold text-emerald-900 mb-1">3. Dự đoán & Cảm nhận: ～そうだ / ～ようだ / ～らしい</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Đưa ra phán đoán qua thị giác, nghe ngóng thông tin hoặc đặc trưng bản chất.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-emerald-200 font-jp space-y-1">
+                <div>・今にも雨が<strong>降りそうです</strong>。(Trông trời như sắp mưa tới nơi rồi.)</div>
+                <div>・田中さんは試験に合格した<strong>らしいです</strong>。(Nghe nói là anh Tanaka đã thi đỗ rồi.)</div>
               </div>
             </div>
-            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-100">
-              <h4 class="font-bold text-rose-900 mb-1">2. V-る / V-ない + こと (Hãy / Tuyệt đối không...)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Dùng trong các văn bản quy định, biển cảnh báo hoặc hướng dẫn làm bài thi.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp">
-                試験中は携帯電話を使わない<strong>こと</strong>。(Trong giờ thi không được sử dụng điện thoại.)
+
+            <div class="p-4 rounded-2xl bg-amber-50 border border-amber-100">
+              <h4 class="font-bold text-amber-900 mb-1">4. Bị động & Sai khiến: ～られる / ～させる</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Thể hiện hành động bị tác động (bị động) hoặc chỉ thị, cho phép ai làm gì (sai khiến).</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-amber-200 font-jp space-y-1">
+                <div>・先生に<strong>褒められました</strong>。(Tôi được thầy giáo khen ngợi.)</div>
+                <div>・子どもに部屋を<strong>掃除させました</strong>。(Tôi bắt con dọn dẹp phòng ngủ.)</div>
               </div>
             </div>
           </div>
         `
       },
       {
-        id: "n3_relation",
-        title: "Cấu trúc liên kết: ～に関して & ～にわたって",
+        id: "grammar_n3",
+        title: "Ngữ pháp N3",
         level: "Trọng tâm N3",
-        icon: "fa-link",
-        description: "Mẫu câu liên quan đến chủ đề thảo luận và phạm vi trải dài.",
+        icon: "fa-graduation-cap",
+        description: "Hệ thống chuyên sâu các mẫu câu N3 cốt lõi: Phán đoán chắc chắn, nghĩa vụ xã hội, liên kết chủ đề và so sánh đối chiếu.",
         content: `
           <div class="space-y-4">
-            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100">
-              <h4 class="font-bold text-blue-900 mb-1">1. N + に関して (Liên quan đến N / Về vấn đề N)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Mang sắc thái trang trọng, dùng nhiều trong tin tức, hội thảo và kỳ thi JLPT.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-blue-200 font-jp">
-                環境問題<strong>に関して</strong>、意見を述べてください。(Hãy phát biểu ý kiến liên quan đến vấn đề môi trường.)
+            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-100">
+              <h4 class="font-bold text-rose-900 mb-1">1. Phán đoán logic: ～はずだ & ～はずがない / わけがない</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Nhận định chắc chắn dựa trên cơ sở xác đáng hoặc phủ định dứt khoát sự việc phi lý.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-rose-200 font-jp space-y-1">
+                <div>・彼は日本に10年も住んでいるから、日本語が上手な<strong>はずだ</strong>。(Anh ấy ở Nhật 10 năm nên chắc chắn tiếng Nhật rất giỏi.)</div>
+                <div>・そんな難しい問題、小学生にできる<strong>はずがない</strong>。(Bài toán khó thế này học sinh tiểu học không thể nào làm được.)</div>
               </div>
             </div>
+
+            <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-100">
+              <h4 class="font-bold text-indigo-900 mb-1">2. Khuyên nhủ & Nguyên tắc: ～べきだ / ～こと</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Đưa ra lời khuyên theo chuẩn mực đạo đức hoặc quy định, biển cảnh báo làm bài thi.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-indigo-200 font-jp space-y-1">
+                <div>・約束は守る<strong>べきだ</strong>。(Đã hứa thì nên giữ lời.)</div>
+                <div>・試験中は携帯電話を使わない<strong>こと</strong>。(Trong giờ thi tuyệt đối không được dùng điện thoại.)</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-blue-50 border border-blue-100">
+              <h4 class="font-bold text-blue-900 mb-1">3. Liên kết chủ đề: ～に関して & ～にわたって</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">Liên quan đến một chủ đề trang trọng hoặc diễn tả phạm vi thời gian, không gian kéo dài.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-blue-200 font-jp space-y-1">
+                <div>・環境問題<strong>に関して</strong>、意見を述べてください。(Hãy phát biểu ý kiến liên quan đến vấn đề môi trường.)</div>
+                <div>・3日間に<strong>わたって</strong>、祭りが開かれました。(Lễ hội diễn ra liên tục suốt 3 ngày liền.)</div>
+              </div>
+            </div>
+
             <div class="p-4 rounded-2xl bg-purple-50 border border-purple-100">
-              <h4 class="font-bold text-purple-900 mb-1">2. N + にわたって (Trải suốt / Kéo dài suốt...)</h4>
-              <p class="text-sm text-slate-700 leading-relaxed">Dùng với khoảng thời gian hoặc phạm vi không gian rộng lớn.</p>
-              <div class="mt-2 text-xs bg-white p-2.5 rounded-xl border border-purple-200 font-jp">
-                3日間に<strong>わたって</strong>、祭りが開かれました。(Lễ hội đã diễn ra suốt 3 ngày liền.)
+              <h4 class="font-bold text-purple-900 mb-1">4. So sánh & Mức độ: ～に比べて / ～わりに(は) / ～ほど</h4>
+              <p class="text-sm text-slate-700 leading-relaxed mb-2">So sánh hai vế hoặc diễn tả kết quả ngược với dự đoán ban đầu.</p>
+              <div class="text-xs bg-white p-2.5 rounded-xl border border-purple-200 font-jp space-y-1">
+                <div>・去年に<strong>比べて</strong>、今年は雨が多い。(So với năm ngoái thì năm nay mưa nhiều hơn.)</div>
+                <div>・この店は値段が高い<strong>わりに</strong>、美味しくない。(Quán này giá đắt thế mà ăn chẳng ngon chút nào.)</div>
               </div>
             </div>
           </div>
@@ -2405,7 +2232,7 @@
     let quizScoreWrong = 0;
     let quizAnswered = false;
 
-    let currentGrammarTopicId = 'n4_condition';
+    let currentGrammarTopicId = 'grammar_n4';
     let currentUser = null;
     let authMode = 'login';
     let isSyncing = false;
