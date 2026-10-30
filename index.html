@@ -1756,10 +1756,9 @@
     }
 
     /* ----------------------------------------------------
-       6. BỘ PHÁT ÂM TIẾNG NHẬT CHUẨN (JAPANESE TTS)
+       6. BỘ PHÁT ÂM TIẾNG NHẬT CHUẨN (HỖ TRỢ BRAVE & CHROME)
        ---------------------------------------------------- */
     let currentAudioPlayer = null;
-    let audioCtx = null;
 
     function sanitizeForJapaneseSpeech(rawText) {
       if (!rawText) return "";
@@ -1777,127 +1776,143 @@
       });
     }
 
-    // Mở khóa AudioContext trên Brave / iOS Safari khi có click
-    function unlockAudioContext() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (AudioContext) {
-          if (!audioCtx) audioCtx = new AudioContext();
-          if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-          }
-        }
-      } catch (e) {}
-    }
-
     function playJapaneseSpeech(textToSpeak) {
       const cleanText = sanitizeForJapaneseSpeech(textToSpeak);
       if (!cleanText) return;
 
-      unlockAudioContext();
       animateSpeakerIcons(true);
 
-      // 1. Dừng âm thanh đang phát trước đó
+      // Dừng âm thanh trước đó nếu đang phát
       if (currentAudioPlayer) {
         currentAudioPlayer.pause();
-        currentAudioPlayer.currentTime = 0;
+        currentAudioPlayer.src = "";
         currentAudioPlayer = null;
       }
-
-      // 2. CHIẾN LƯỢC 1: Dùng Web Speech API trước (Tận dụng voice hệ thống của Windows/macOS/Android)
       if ('speechSynthesis' in window) {
-        try {
-          window.speechSynthesis.cancel();
-          window.speechSynthesis.resume();
-
-          const utterance = new SpeechSynthesisUtterance(cleanText);
-          utterance.lang = 'ja-JP';
-          utterance.rate = 0.9;
-          utterance.pitch = 1.0;
-
-          if (availableVoices.length === 0) {
-            availableVoices = window.speechSynthesis.getVoices();
-          }
-
-          const jaVoice = availableVoices.find(v => 
-            v.lang === 'ja-JP' || v.lang === 'ja_JP' || (v.lang && v.lang.toLowerCase().startsWith('ja'))
-          );
-
-          if (jaVoice) {
-            utterance.voice = jaVoice;
-          }
-
-          let speechStarted = false;
-          utterance.onstart = () => {
-            speechStarted = true;
-          };
-
-          utterance.onend = () => {
-            animateSpeakerIcons(false);
-          };
-
-          utterance.onerror = (e) => {
-            // Nếu Web Speech trên Brave bị lỗi, tự động chuyển sang Engine luồng Audio dự phòng
-            tryFallbackAudioStream(cleanText);
-          };
-
-          window.speechSynthesis.speak(utterance);
-
-          // Kiểm tra nếu sau 300ms Brave vẫn chặn âm ngầm (không kích hoạt onstart)
-          setTimeout(() => {
-            if (!speechStarted && (!window.speechSynthesis.speaking || window.speechSynthesis.paused)) {
-              window.speechSynthesis.cancel();
-              tryFallbackAudioStream(cleanText);
-            }
-          }, 350);
-
-          return;
-        } catch (err) {
-          console.warn("SpeechSynthesis error:", err);
-        }
+        window.speechSynthesis.cancel();
       }
 
-      // 3. CHIẾN LƯỢC 2: Dự phòng nếu trình duyệt không có SpeechSynthesis
-      tryFallbackAudioStream(cleanText);
+      // KIỂM TRA VOICE TIẾNG NHẬT NỘI BỘ TRÊN MÁY
+      let hasLocalJapaneseVoice = false;
+      if ('speechSynthesis' in window) {
+        const voices = window.speechSynthesis.getVoices();
+        hasLocalJapaneseVoice = voices.some(v => v.lang === 'ja-JP' || v.lang === 'ja_JP' || (v.lang && v.lang.toLowerCase().startsWith('ja')));
+      }
+
+      // TRÊN BRAVE: Nếu không có Voice tiếng Nhật cài trên máy, Web Speech API sẽ bị treo im lặng
+      // Do đó ta ưu tiên dùng Audio Stream từ server phát âm chuyên dụng
+      const isBrave = (navigator.brave && typeof navigator.brave.isBrave === 'function') || !hasLocalJapaneseVoice;
+
+      if (!isBrave && 'speechSynthesis' in window) {
+        speakViaWebSpeech(cleanText, () => {
+          // Fallback nếu Web Speech lỗi
+          speakViaAudioStream(cleanText);
+        });
+      } else {
+        speakViaAudioStream(cleanText);
+      }
     }
 
-    // Engine Audio Stream dự phòng - Vượt tường lửa của Brave Shields
-    function tryFallbackAudioStream(cleanText) {
+    // Phương án 1: Dùng Audio Stream mở (tương thích tối đa với Brave và di động)
+    function speakViaAudioStream(cleanText) {
       const encoded = encodeURIComponent(cleanText);
-      // Sử dụng luồng endpoint có hỗ trợ CORS và thân thiện với Brave
-      const fallbackUrls = [
-        `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ja&client=tw-ob`,
-        `https://dict.youdao.com/dictvoice?audio=${encoded}&le=jap`
+      
+      // Các nguồn âm thanh tiếng Nhật công khai không bị chặn CORS / Tracker
+      const audioSources = [
+        `https://dict.youdao.com/dictvoice?audio=${encoded}&le=jap`,
+        `https://translate.google.com/translate_tts?ie=UTF-8&q=${encoded}&tl=ja&client=tw-ob`
       ];
 
-      playFromUrlList(fallbackUrls, 0);
+      playFallbackChain(audioSources, 0, cleanText);
     }
 
-    function playFromUrlList(urls, index) {
-      if (index >= urls.length) {
-        animateSpeakerIcons(false);
-        showToast("Không thể phát âm thanh. Vui lòng kiểm tra lại thiết lập âm thanh.", "fa-volume-xmark");
+    function playFallbackChain(sources, index, cleanText) {
+      if (index >= sources.length) {
+        // Nếu các nguồn stream đều bị chặn (ví dụ mạng offline), thử Web Speech lần cuối
+        speakViaWebSpeech(cleanText, () => {
+          animateSpeakerIcons(false);
+          showToast("Không thể phát âm. Trên Brave hãy bấm vào icon khiên và tắt 'Trackers & ads blocking' cho trang web này.", "fa-volume-xmark");
+        });
         return;
       }
 
       const audio = new Audio();
-      audio.crossOrigin = "anonymous";
-      audio.src = urls[index];
+      audio.src = sources[index];
       currentAudioPlayer = audio;
 
-      const playPromise = audio.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          audio.onended = () => {
-            animateSpeakerIcons(false);
-            currentAudioPlayer = null;
-          };
-        }).catch(() => {
-          // Thử link kế tiếp nếu bị Brave chặn
-          playFromUrlList(urls, index + 1);
+      let isPlayed = false;
+      const timer = setTimeout(() => {
+        if (!isPlayed) {
+          audio.pause();
+          playFallbackChain(sources, index + 1, cleanText);
+        }
+      }, 2500);
+
+      audio.onplay = () => {
+        isPlayed = true;
+        clearTimeout(timer);
+      };
+
+      audio.onended = () => {
+        animateSpeakerIcons(false);
+        currentAudioPlayer = null;
+      };
+
+      audio.onerror = () => {
+        clearTimeout(timer);
+        playFallbackChain(sources, index + 1, cleanText);
+      };
+
+      const promise = audio.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          clearTimeout(timer);
+          playFallbackChain(sources, index + 1, cleanText);
         });
-      } else {
-        playFromUrlList(urls, index + 1);
+      }
+    }
+
+    // Phương án 2: Web Speech API chuẩn
+    function speakViaWebSpeech(cleanText, onErrorCallback) {
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.88;
+        utterance.pitch = 1.0;
+
+        const voices = window.speechSynthesis.getVoices();
+        const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP' || (v.lang && v.lang.toLowerCase().startsWith('ja')));
+        if (jaVoice) {
+          utterance.voice = jaVoice;
+        }
+
+        let started = false;
+        utterance.onstart = () => {
+          started = true;
+        };
+
+        utterance.onend = () => {
+          animateSpeakerIcons(false);
+        };
+
+        utterance.onerror = () => {
+          if (onErrorCallback) onErrorCallback();
+        };
+
+        window.speechSynthesis.speak(utterance);
+
+        // Giám sát trạng thái treo thường gặp trên Brave
+        setTimeout(() => {
+          if (!started && (!window.speechSynthesis.speaking || window.speechSynthesis.paused)) {
+            window.speechSynthesis.cancel();
+            if (onErrorCallback) onErrorCallback();
+          }
+        }, 500);
+      } catch (err) {
+        if (onErrorCallback) onErrorCallback();
       }
     }
 
